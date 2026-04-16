@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>术语词汇表 - 人话翻译器</title>
+
+    <!-- Distinctive Fonts from Fontshare -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===========================================
+           CSS CUSTOM PROPERTIES (THEME)
+           =========================================== */
+        :root {
+            /* Colors - Sophisticated palette */
+            --bg-primary: #0f0f23;
+            --bg-secondary: #1a1a2e;
+            --bg-gradient: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            --card-bg: #1e1e38;
+            --card-hover: #252547;
+            --text-primary: #e8e8f5;
+            --text-secondary: #a0a0c0;
+            --text-muted: #6b6b8f;
+            --accent-primary: #00d9ff;
+            --accent-secondary: #7c3aed;
+            --accent-tertiary: #f59e0b;
+            --accent-glow: rgba(0, 217, 255, 0.15);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+            --shadow-glow: 0 0 40px var(--accent-glow);
+
+            /* Typography */
+            --font-display: 'Sora', -apple-system, sans-serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+            --title-size: clamp(2rem, 5vw, 3.5rem);
+            --subtitle-size: clamp(1rem, 2vw, 1.25rem);
+            --body-size: clamp(0.9rem, 1.2vw, 1.05rem);
+            --small-size: clamp(0.8rem, 1vw, 0.9rem);
+
+            /* Spacing */
+            --space-xs: clamp(0.5rem, 1vw, 0.75rem);
+            --space-sm: clamp(0.75rem, 1.5vw, 1rem);
+            --space-md: clamp(1rem, 2vw, 1.5rem);
+            --space-lg: clamp(1.5rem, 3vw, 2.5rem);
+            --space-xl: clamp(2rem, 4vw, 4rem);
+
+            /* Animation */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+            --duration-fast: 0.2s;
+            --duration-normal: 0.4s;
+            --duration-slow: 0.6s;
+        }
+
+        /* ===========================================
+           BASE STYLES
+           =========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.7;
+            color: var(--text-primary);
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: var(--space-lg);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated background particles */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(124, 58, 237, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(0, 217, 255, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg), var(--shadow-glow);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(20px);
+        }
+
+        /* Decorative corner accents */
+        .container::before,
+        .container::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .container::before {
+            top: -100px;
+            right: -100px;
+            background: var(--accent-primary);
+        }
+
+        .container::after {
+            bottom: -100px;
+            left: -100px;
+            background: var(--accent-secondary);
+        }
+
+        /* ===========================================
+           HEADER
+           =========================================== */
+        header {
+            background: linear-gradient(135deg, var(--accent-secondary) 0%, var(--accent-primary) 100%);
+            padding: var(--space-xl) var(--space-lg);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+
+        header h1 {
+            font-family: var(--font-display);
+            font-size: var(--title-size);
+            font-weight: 800;
+            margin-bottom: var(--space-sm);
+            position: relative;
+            z-index: 1;
+            letter-spacing: -0.02em;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        header p {
+            font-size: var(--subtitle-size);
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+        }
+
+        /* ===========================================
+           CONTENT
+           =========================================== */
+        .content {
+            padding: var(--space-xl) var(--space-lg);
+        }
+
+        /* Summary Section */
+        .summary {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(0, 217, 255, 0.05) 100%);
+            border-left: 4px solid var(--accent-primary);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .summary::before {
+            content: '📝';
+            position: absolute;
+            top: var(--space-md);
+            right: var(--space-md);
+            font-size: 3rem;
+            opacity: 0.1;
+        }
+
+        .summary h2 {
+            color: var(--accent-primary);
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+            letter-spacing: -0.01em;
+        }
+
+        .summary p {
+            font-size: var(--body-size);
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+
+        /* Difficulty Sections */
+        .difficulty-section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .difficulty-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .difficulty-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-xs) var(--space-md);
+            border-radius: 12px;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: var(--small-size);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .difficulty-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .difficulty-badge:hover::before {
+            left: 100%;
+        }
+
+        .difficulty-beginner {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+        .difficulty-intermediate {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+        }
+        .difficulty-professional {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+        }
+        .difficulty-advanced {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+        }
+        .difficulty-expert {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+        }
+
+        .difficulty-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        /* Term Cards */
+        .term-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: var(--space-lg);
+            margin-bottom: var(--space-md);
+            transition: all var(--duration-normal) var(--ease-out-expo);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .term-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary));
+            opacity: 0;
+            transition: opacity var(--duration-normal);
+        }
+
+        .term-card:hover {
+            background: var(--card-hover);
+            border-color: var(--accent-primary);
+            box-shadow: var(--shadow-md), 0 0 20px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        .term-card:hover::before {
+            opacity: 1;
+        }
+
+        .term-name {
+            font-family: var(--font-display);
+            font-size: clamp(1.25rem, 2vw, 1.5rem);
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            letter-spacing: -0.01em;
+        }
+
+        .term-name .english {
+            font-family: var(--font-display);
+        }
+
+        .pronunciation {
+            background: rgba(0, 217, 255, 0.1);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 8px;
+            font-size: var(--small-size);
+            color: var(--accent-primary);
+            display: inline-block;
+            margin-bottom: var(--space-sm);
+            font-family: 'Courier New', monospace;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .pronunciation-help {
+            background: rgba(245, 158, 11, 0.1);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 8px;
+            font-size: var(--small-size);
+            color: var(--accent-tertiary);
+            display: inline-block;
+            margin-bottom: var(--space-sm);
+            margin-left: var(--space-xs);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .term-section {
+            margin-bottom: var(--space-md);
+        }
+
+        .term-label {
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-xs);
+            font-size: var(--small-size);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .term-content {
+            color: var(--text-primary);
+            line-height: 1.8;
+            font-size: var(--body-size);
+        }
+
+        .term-explanation {
+            font-size: var(--body-size);
+            color: var(--text-primary);
+            line-height: 1.9;
+            margin-bottom: var(--space-md);
+        }
+
+        .history {
+            background: rgba(124, 58, 237, 0.05);
+            padding: var(--space-md);
+            border-radius: 12px;
+            margin-top: var(--space-md);
+            border-left: 3px solid var(--accent-secondary);
+        }
+
+        .timeline {
+            color: var(--text-secondary);
+            font-size: var(--small-size);
+            font-style: italic;
+            margin-top: var(--space-xs);
+        }
+
+        .learn-more {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(124, 58, 237, 0.1));
+            color: var(--accent-primary);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: 10px;
+            font-size: var(--small-size);
+            margin-top: var(--space-md);
+            font-weight: 500;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            display: inline-block;
+        }
+
+        /* ===========================================
+           FOOTER
+           =========================================== */
+        footer {
+            background: var(--bg-secondary);
+            padding: var(--space-lg);
+            text-align: center;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-color);
+        }
+
+        footer p {
+            font-size: var(--body-size);
+            margin-bottom: var(--space-xs);
+        }
+
+        footer .hint {
+            font-size: var(--small-size);
+            color: var(--text-muted);
+        }
+
+        /* ===========================================
+           PRINT STYLES
+           =========================================== */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            body::before {
+                display: none;
+            }
+
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+                border: none;
+            }
+
+            .container::before,
+            .container::after {
+                display: none;
+            }
+
+            .term-card {
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+
+            .term-card:hover {
+                transform: none;
+            }
+        }
+
+        /* ===========================================
+           RESPONSIVE
+           =========================================== */
+        @media (max-width: 768px) {
+            body {
+                padding: var(--space-sm);
+            }
+
+            .content {
+                padding: var(--space-md);
+            }
+
+            header {
+                padding: var(--space-lg) var(--space-md);
+            }
+
+            .term-name {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .difficulty-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* ===========================================
+           ANIMATIONS
+           =========================================== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .term-card {
+            animation: fadeInUp var(--duration-slow) var(--ease-out-expo);
+        }
+
+        .term-card:nth-child(1) { animation-delay: 0.1s; }
+        .term-card:nth-child(2) { animation-delay: 0.15s; }
+        .term-card:nth-child(3) { animation-delay: 0.2s; }
+        .term-card:nth-child(4) { animation-delay: 0.25s; }
+        .term-card:nth-child(5) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 术语词汇表</h1>
+            <p>让每个人都能看懂技术文章</p>
+        </header>
+
+        <div class="content">
+            <!-- Summary Section -->
+            <div class="summary">
+                <h2>文章摘要</h2>
+                <p>{{SUMMARY}}</p>
+            </div>
+
+            <!-- Glossary Sections -->
+            {{GLOSSARY_SECTIONS}}
+        </div>
+
+        <footer>
+            <p>💬 想了解更多任何词汇，可以继续对话</p>
+            <p class="hint">此页面可直接打印为PDF保存</p>
+        </footer>
+    </div>
+</body>
+</html>
