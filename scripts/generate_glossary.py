@@ -95,8 +95,27 @@ def generate_html(data, template_path, output_path):
         section_html += '</div>'
         glossary_html.append(section_html)
 
+    # Generate domain overview bar
+    domains = data.get('domains', [])
+    domain_html = ''
+    if domains:
+        tags = []
+        for d in domains:
+            emoji = esc(d.get('emoji', '📖'))
+            name = esc(d.get('name', ''))
+            count = int(d.get('count', 0))
+            tag = '<div class="domain-tag">'
+            tag += '<span class="domain-emoji">%s</span>' % emoji
+            tag += '<span>%s</span>' % name
+            if count > 0:
+                tag += '<span class="domain-count">%d</span>' % count
+            tag += '</div>'
+            tags.append(tag)
+        domain_html = '<div class="domain-overview">%s</div>' % ''.join(tags)
+
     # Replace placeholders — escape summary to prevent XSS
-    output_html = template.replace('{{SUMMARY}}', esc(summary))
+    output_html = template.replace('{{DOMAIN_OVERVIEW}}', domain_html)
+    output_html = output_html.replace('{{SUMMARY}}', esc(summary))
     output_html = output_html.replace('{{GLOSSARY_SECTIONS}}', '\n'.join(glossary_html))
 
     # Write output

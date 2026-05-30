@@ -258,11 +258,12 @@ Use the provided HTML template in `assets/glossary_template.html`. The design sh
 
 **Structure:**
 1. Header with title
-2. Article summary section (prominent, easy to read)
-3. Glossary sections organized by difficulty level
-4. Each difficulty level has a clear heading
-5. Each term is a card/block with clear visual hierarchy
-6. Footer with instructions: "想了解更多任何词汇，可以继续对话"
+2. **Domain overview bar** (涉及领域概览): emoji tag 横排展示本文涉及的领域和术语数量，让用户一眼扫到全貌
+3. Article summary section (prominent, easy to read)
+4. Glossary sections organized by difficulty level
+5. Each difficulty level has a clear heading
+6. Each term is a card/block with clear visual hierarchy
+7. Footer with instructions: "想了解更多任何词汇，可以继续对话"
 
 **Interaction:**
 - No search/filter needed (glossary won't be too long)
@@ -288,6 +289,10 @@ Use the provided HTML template in `assets/glossary_template.html`. The design sh
 ```json
 {
   "summary": "300 字大白话摘要",
+  "domains": [
+    {"emoji": "🤖", "name": "AI / 科技", "count": 5},
+    {"emoji": "🏥", "name": "医学", "count": 2}
+  ],
   "terms": {
     "beginner": [
       {
@@ -309,6 +314,8 @@ Use the provided HTML template in `assets/glossary_template.html`. The design sh
   }
 }
 ```
+
+`domains` 字段说明：列出本文涉及的所有领域，每个领域带 emoji、名称和术语数量。会在词汇表顶部渲染成一排标签，用户一眼就能看出这篇文章涉及哪些领域。常用 emoji 对照：🤖 AI/科技、🏥 医学、⚖️ 法律、💰 金融、📚 学术、📋 政策、🎮 游戏、🔗 区块链、🔧 硬件。
 
 ## Output Location
 

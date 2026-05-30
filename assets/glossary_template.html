@@ -212,6 +212,51 @@
             color: var(--text-primary);
         }
 
+        /* Domain Overview Bar */
+        .domain-overview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xl);
+            padding: var(--space-md) var(--space-lg);
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        .domain-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: var(--space-xs) var(--space-md);
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            font-size: var(--small-size);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            transition: all var(--duration-fast);
+        }
+
+        .domain-tag:hover {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        .domain-emoji {
+            font-size: 1.2em;
+        }
+
+        .domain-count {
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+            font-size: 0.75em;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 6px;
+            min-width: 20px;
+            text-align: center;
+        }
+
         /* Difficulty Sections */
         .difficulty-section {
             margin-bottom: var(--space-xl);
@@ -512,6 +557,22 @@
                 border-color: #bdd8f0 !important;
             }
 
+            .domain-overview {
+                background: #f5f5f5 !important;
+                border-color: #ddd !important;
+            }
+
+            .domain-tag {
+                background: white !important;
+                color: #1a1a1a !important;
+                border-color: #ddd !important;
+            }
+
+            .domain-count {
+                background: #2563eb !important;
+                color: white !important;
+            }
+
             footer {
                 background: #f5f5f5 !important;
                 color: #555 !important;
@@ -589,10 +650,13 @@
     <div class="container">
         <header>
             <h1>📚 术语词汇表</h1>
-            <p>让每个人都能看懂技术文章</p>
+            <p>让每个人都能看懂专业内容</p>
         </header>
 
         <div class="content">
+            <!-- Domain Overview -->
+            {{DOMAIN_OVERVIEW}}
+
             <!-- Summary Section -->
             <div class="summary">
                 <h2>文章摘要</h2>
