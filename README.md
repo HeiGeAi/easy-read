@@ -64,31 +64,118 @@ cp assets/glossary_template.html ~/.claude/skills/easy-read/assets/
 
 Easy Read 的核心是 SKILL.md（指令）+ Python 脚本（生成 HTML），不绑定特定 Agent。只要你的 Agent 能读文件、跑 Python，就能用。
 
-**Codex (OpenAI)**
+<details>
+<summary><b>Codex (OpenAI)</b></summary>
+
 ```bash
 git clone https://github.com/HeiGeAi/easy-read.git
-# 在 Codex 的 instructions 中引用 SKILL.md 内容
-# 或直接把 SKILL.md 贴进 .codex/instructions.md
+# 把 SKILL.md 内容贴进项目的 AGENTS.md 或 .codex/instructions.md
 ```
+</details>
 
-**OpenClaw / DeskClaw**
+<details>
+<summary><b>OpenClaw / DeskClaw</b></summary>
+
 ```bash
 git clone https://github.com/HeiGeAi/easy-read.git ~/.openclaw/skills/easy-read
 # SKILL.md 格式兼容，直接可用
 ```
+</details>
 
-**Cursor / Windsurf / 其他 IDE Agent**
+<details>
+<summary><b>Cursor</b></summary>
+
 ```bash
 git clone https://github.com/HeiGeAi/easy-read.git
-# 把 SKILL.md 内容加到 .cursor/rules 或对应的指令文件中
+# 把 SKILL.md 内容加到项目根目录的 .cursor/rules/easy-read.mdc
+# 或直接放进 .cursorrules 文件
 ```
+</details>
 
-**通用方式**
+<details>
+<summary><b>Windsurf</b></summary>
+
 ```bash
 git clone https://github.com/HeiGeAi/easy-read.git
-# 告诉你的 Agent："按照 SKILL.md 的流程处理这篇文章"
-# Agent 读 SKILL.md → 分析文章 → 生成 JSON → 调 Python 脚本 → 输出 HTML
+# 把 SKILL.md 内容加到项目根目录的 .windsurfrules
 ```
+</details>
+
+<details>
+<summary><b>Cline (VS Code)</b></summary>
+
+```bash
+git clone https://github.com/HeiGeAi/easy-read.git
+# 把 SKILL.md 内容加到项目根目录的 .clinerules
+# 或在 Cline 设置里添加为 Custom Instructions
+```
+</details>
+
+<details>
+<summary><b>Aider</b></summary>
+
+```bash
+git clone https://github.com/HeiGeAi/easy-read.git
+# 把 SKILL.md 内容加到 .aider.conf.yml 的 read 列表
+# 或启动时用 --read SKILL.md 参数
+aider --read easy-read/SKILL.md
+```
+</details>
+
+<details>
+<summary><b>GitHub Copilot</b></summary>
+
+```bash
+git clone https://github.com/HeiGeAi/easy-read.git
+# 把 SKILL.md 内容加到 .github/copilot-instructions.md
+```
+</details>
+
+<details>
+<summary><b>Continue (VS Code / JetBrains)</b></summary>
+
+```bash
+git clone https://github.com/HeiGeAi/easy-read.git
+# 在 .continue/config.yaml 的 customInstructions 中引用 SKILL.md
+# 或把内容加到 .continuerules 文件
+```
+</details>
+
+<details>
+<summary><b>Trae (字节)</b></summary>
+
+```bash
+git clone https://github.com/HeiGeAi/easy-read.git
+# 把 SKILL.md 内容加到 .trae/rules 文件
+```
+</details>
+
+<details>
+<summary><b>Augment</b></summary>
+
+```bash
+git clone https://github.com/HeiGeAi/easy-read.git
+# 在 Augment 的 Instructions 设置中引用 SKILL.md 内容
+```
+</details>
+
+<details>
+<summary><b>Devin</b></summary>
+
+在 Devin 的 Knowledge 面板上传 SKILL.md，然后对话时说"按照 Knowledge 里的 Easy Read 流程处理这篇文章"。
+</details>
+
+<details>
+<summary><b>通用方式（任何 Agent）</b></summary>
+
+```bash
+git clone https://github.com/HeiGeAi/easy-read.git
+```
+
+告诉你的 Agent："读 `easy-read/SKILL.md`，按里面的流程处理这篇文章"。
+
+工作流：Agent 读 SKILL.md → 分析文章 → 生成 JSON → 调 Python 脚本 → 输出 HTML。
+</details>
 
 ### 使用方法
 
@@ -299,28 +386,118 @@ Then use it by typing `/easy-read` in Claude Code.
 
 Easy Read is just SKILL.md (instructions) + a Python script (HTML generation). Works with any agent that can read files and run Python.
 
-**Codex (OpenAI)**
+<details>
+<summary><b>Codex (OpenAI)</b></summary>
+
 ```bash
 git clone https://github.com/HeiGeAi/easy-read.git
-# Reference SKILL.md in your Codex instructions
+# Add SKILL.md content to AGENTS.md or .codex/instructions.md
 ```
+</details>
 
-**OpenClaw / DeskClaw**
+<details>
+<summary><b>OpenClaw / DeskClaw</b></summary>
+
 ```bash
 git clone https://github.com/HeiGeAi/easy-read.git ~/.openclaw/skills/easy-read
+# SKILL.md format is compatible, works out of the box
 ```
+</details>
 
-**Cursor / Windsurf / Other IDE Agents**
+<details>
+<summary><b>Cursor</b></summary>
+
 ```bash
 git clone https://github.com/HeiGeAi/easy-read.git
-# Add SKILL.md content to .cursor/rules or equivalent
+# Add SKILL.md content to .cursor/rules/easy-read.mdc
+# Or put it in .cursorrules
 ```
+</details>
 
-**Generic**
+<details>
+<summary><b>Windsurf</b></summary>
+
 ```bash
 git clone https://github.com/HeiGeAi/easy-read.git
-# Tell your agent: "Follow SKILL.md to process this article"
+# Add SKILL.md content to .windsurfrules
 ```
+</details>
+
+<details>
+<summary><b>Cline (VS Code)</b></summary>
+
+```bash
+git clone https://github.com/HeiGeAi/easy-read.git
+# Add SKILL.md content to .clinerules
+# Or set as Custom Instructions in Cline settings
+```
+</details>
+
+<details>
+<summary><b>Aider</b></summary>
+
+```bash
+git clone https://github.com/HeiGeAi/easy-read.git
+# Add SKILL.md to the read list in .aider.conf.yml
+# Or use the --read flag at launch
+aider --read easy-read/SKILL.md
+```
+</details>
+
+<details>
+<summary><b>GitHub Copilot</b></summary>
+
+```bash
+git clone https://github.com/HeiGeAi/easy-read.git
+# Add SKILL.md content to .github/copilot-instructions.md
+```
+</details>
+
+<details>
+<summary><b>Continue (VS Code / JetBrains)</b></summary>
+
+```bash
+git clone https://github.com/HeiGeAi/easy-read.git
+# Reference SKILL.md in customInstructions in .continue/config.yaml
+# Or add content to .continuerules
+```
+</details>
+
+<details>
+<summary><b>Trae</b></summary>
+
+```bash
+git clone https://github.com/HeiGeAi/easy-read.git
+# Add SKILL.md content to .trae/rules
+```
+</details>
+
+<details>
+<summary><b>Augment</b></summary>
+
+```bash
+git clone https://github.com/HeiGeAi/easy-read.git
+# Reference SKILL.md in Augment's Instructions settings
+```
+</details>
+
+<details>
+<summary><b>Devin</b></summary>
+
+Upload SKILL.md to Devin's Knowledge panel. Then say: "Follow the Easy Read workflow from Knowledge to process this article."
+</details>
+
+<details>
+<summary><b>Generic (any agent)</b></summary>
+
+```bash
+git clone https://github.com/HeiGeAi/easy-read.git
+```
+
+Tell your agent: "Read `easy-read/SKILL.md` and follow the workflow to process this article."
+
+Flow: Agent reads SKILL.md → analyzes article → generates JSON → runs Python script → outputs HTML.
+</details>
 
 ### Usage
 
