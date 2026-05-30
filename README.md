@@ -1,6 +1,6 @@
 # Easy Read | 人话翻译器
 
-一个 Claude Code skill，将技术文章转换为易懂内容 — 把充满术语的 AI/科技新闻变成任何人都能理解的大白话。
+Claude Code skill。扔一篇科技文章进去，出来一份带词汇表的大白话版本。
 
 [English](#english) | [中文](#中文)
 
@@ -10,19 +10,19 @@
 
 ### 这是什么
 
-**Easy Read（人话翻译器）** 帮助非技术人员理解复杂的技术内容。它自动识别难懂的术语，创建美观的词汇表，用大白话解释，并提供文章摘要，让完全没有技术背景的人也能看懂。
+**你奶奶也能看懂的科技新闻翻译器。**
 
-核心特点：
+满屏 Agent、RAG、Embedding 看不懂？Easy Read 把术语全部翻译成人话，生成一份 HTML 词汇表 + 300 字摘要。打开就能看，存下来还能转发给家人。
 
 https://github.com/user-attachments/assets/[demo-video-placeholder]
 
 ### 主要功能
 
-- **零技术背景要求** — 为任何对科技新闻好奇的人设计
-- **智能术语识别** — 自动识别需要解释的术语（AI 概念、缩写、流行词）
-- **美观的输出** — 简洁现代的 HTML 词汇表，带难度等级、发音指南和历史背景
-- **多种输入格式** — 接受文本、文件、网址、PDF、截图 — 任何你扔给它的东西
-- **信息平权** — 每个人都应该理解正在塑造我们世界的技术，无论背景如何
+- **零门槛**：完全不懂技术也能用，给爸妈看科技新闻就靠它
+- **自动抓术语**：AI 概念、缩写、流行梗，一个不漏
+- **输出好看**：HTML 词汇表，带难度等级、发音指南、来龙去脉
+- **格式随便扔**：文本、文件、网址、PDF、截图都行
+- **信息平权**：技术改变每个人的生活，每个人都该看得懂
 
 ### 安装
 
@@ -75,10 +75,10 @@ Skill 会：
 1. 提取并分析内容
 2. 识别所有技术术语和行话
 3. 为每个术语生成大白话解释
-4. 创建美观的 HTML 词汇表，包含：
+4. 创建 HTML 词汇表，包含：
    - 难度等级（入门级 → 大师级）
    - 发音指南（国际音标 + 中式发音）
-   - 历史背景（术语如何演变）
+   - 历史背景（术语怎么演变来的）
    - 300 字文章摘要
 5. 保存到桌面的 `claudecode/easy-read-output/` 文件夹
 6. 在浏览器中打开
@@ -115,7 +115,7 @@ Skill 会：
 
 ### 会解释什么
 
-Skill 识别那些会让**零计算机基础**的人困惑的术语：
+识别那些会让**完全没有技术背景的人**懵圈的术语：
 
 #### AI/ML 概念
 - Prompt Engineering（提示词工程）、Context Engineering（上下文工程）、Harness Engineering（驾驭工程）
@@ -142,74 +142,72 @@ Skill 识别那些会让**零计算机基础**的人困惑的术语：
 每个词汇表包含：
 
 #### 文章摘要
-一个 300 字的大白话摘要，捕捉关键点，不假设任何技术知识。
+300 字大白话摘要，抓住核心观点，不假设你有任何背景知识。
 
-#### 按难度等级分类的词汇表
+#### 按难度分级的词汇表
 
-**入门级** — 日常生活中可能遇到的基础概念
-- 例如："API" → "应用程序接口 — 就像餐厅的菜单，让不同软件之间能互相'点菜'交流"
+**入门级**：日常生活可能碰到的基础概念
+- "API" → "应用程序接口，就像餐厅菜单，让不同软件之间能互相'点菜'"
 
-**进阶级** — 需要一些背景知识
-- 例如："Prompt Engineering" → "提示词工程 — 学会怎么跟 AI 说话，让它更懂你的意思"
+**进阶级**：需要一点背景知识
+- "Prompt Engineering" → "提示词工程，学会怎么跟 AI 说话，让它更懂你的意思"
 
-**专业级** — 行业从业者常用
-- 例如："Context Window" → "上下文窗口 — AI 一次能'记住'多少内容的限制"
+**专业级**：从业者常用
+- "Context Window" → "上下文窗口，AI 一次能'记住'多少内容的上限"
 
-**专家级** — 深度技术概念
-- 例如："Embedding" → "嵌入向量 — 把文字转成数字，让 AI 能理解和比较"
+**专家级**：深度技术概念
+- "Embedding" → "嵌入向量，把文字转成数字，让 AI 能理解和比较"
 
-**大师级** — 前沿研究
-- 例如："Harness Engineering" → "驾驭工程 — 设计 AI 的工作环境和工具，而不是写更长的提示词"
+**大师级**：前沿研究方向
+- "Harness Engineering" → "驾驭工程，给 AI 设计工作环境和工具，比写更长的提示词管用"
 
 #### 每个术语包含
 
-- **中文名称** — 中文翻译
-- **英文名称** — 原始术语
-- **发音** — 国际音标 + 中式发音提示
-- **大白话解释** — 用日常语言解释含义
-- **历史背景** — 术语如何演变（追溯 1-2 个版本）
-- **时间线** — 何时流行起来
+- **中文名称**
+- **英文原词**
+- **发音**：国际音标 + 中式发音
+- **大白话解释**
+- **来龙去脉**：术语怎么演变来的
+- **时间线**：什么时候火起来的
 
 ### 架构
 
-这个 skill 使用**渐进式工作流**：
+渐进式工作流：
 
-| 文件 | 用途 | 何时使用 |
-|------|------|----------|
-| `SKILL.md` | 核心工作流程和规则 | 始终（skill 调用时） |
-| `scripts/generate_glossary.py` | HTML 生成逻辑 | 阶段 3（输出创建） |
-| `assets/glossary_template.html` | 视觉模板 | 阶段 3（输出创建） |
+| 文件 | 干什么的 | 什么时候用 |
+|------|----------|-----------|
+| `SKILL.md` | 核心流程和规则 | 每次调用 |
+| `scripts/generate_glossary.py` | HTML 生成 | 第三阶段（生成输出） |
+| `assets/glossary_template.html` | 视觉模板 | 第三阶段（生成输出） |
 
-设计遵循原则："让复杂的东西变得易懂，而不是简化。"
+原则：**让复杂的东西变得易懂，信息量一点不丢。**
 
-### 设计哲学
+### 为什么做这个
 
-这个 skill 诞生于以下信念：
+出发点很简单：**你奶奶应该也能看懂 AI 新闻。**
 
-1. **信息应该对每个人都可及。** 你的奶奶应该能够阅读 AI 新闻而不感到迷失。
+术语本身是为了精确，但大多数时候它变成了门槛。你去医院看病，医生一堆专业名词说你的病情，你听不懂就焦虑。科技新闻是同一个问题。
 
-2. **术语是障碍，不是特色。** 技术术语存在是为了精确，但它们不应该把人们排除在理解重要发展之外。
+Easy Read 做的事情：保留原文的信息量，换一套说人话的表达。把术语还原成它本来要说的意思，加上来龙去脉，看完就懂。
 
-3. **背景很重要。** 知道一个术语从哪里来，有助于你理解它要去哪里。
-
-4. **美观的设计有助于理解。** 设计良好的词汇表不仅仅是好看 — 它帮助你学习。
+好看的排版也是功能的一部分。读起来舒服，才能真的读进去。
 
 ### 系统要求
 
 - [Claude Code](https://claude.ai/claude-code) CLI
-- Python 3.7+（用于词汇表生成）
-- 处理网页内容需要：`web-access` skill 或类似工具
+- Python 3.7+
+- 处理网页内容需要 `web-access` skill
 
 ### 输出示例
 
-当你处理一篇关于"Harness Engineering"的文章时，你会得到一个词汇表，解释：
+处理一篇关于 Harness Engineering 的文章，词汇表长这样：
 
-- **Harness Engineering**（大师级）— "驾驭工程：不是教 AI 怎么做，而是给它设计好工作环境和工具"
-- **Prompt Engineering**（进阶级）— "提示词工程：学会跟 AI 说话的艺术"
-- **Agent**（专业级）— "智能体：能自己做决策、调用工具的 AI 程序"
-- **Context Window**（专家级）— "上下文窗口：AI 一次能'看'多少内容"
+- **Harness Engineering**（大师级）："驾驭工程，给 AI 设计好工作环境和工具箱"
+- **Prompt Engineering**（进阶级）："提示词工程，学会跟 AI 说话的技巧"
+- **Agent**（专业级）："智能体，能自己做决定、调用工具的 AI 程序"
+- **Context Window**（专家级）："上下文窗口，AI 一次能'看到'多少内容"
 
-加上一个 300 字的摘要，用大白话解释文章的要点。
+加上 300 字摘要，用大白话讲清楚文章核心。
 
 ---
 
@@ -217,19 +215,19 @@ Skill 识别那些会让**零计算机基础**的人困惑的术语：
 
 ### What This Does
 
-**Easy Read** helps non-technical people understand complex technical content. It automatically identifies difficult terms, creates beautiful glossaries with plain-language explanations, and provides article summaries that make sense to complete beginners.
+**Tech articles your grandma can actually read.**
 
-Here's what makes it special:
+Run into an article full of Agent, RAG, Embedding and have no idea what any of it means? Easy Read translates every piece of jargon into plain language, generates an HTML glossary with a 300-word summary. Open it, read it, send it to anyone.
 
 https://github.com/user-attachments/assets/[demo-video-placeholder]
 
 ### Key Features
 
-- **Zero Technical Background Required** — Designed for grandparents, students, and anyone curious about tech news
-- **Smart Jargon Detection** — Automatically identifies terms that need explanation (AI concepts, acronyms, buzzwords)
-- **Beautiful Output** — Clean, modern HTML glossaries with difficulty levels, pronunciation guides, and historical context
-- **Multiple Input Formats** — Accepts text, files, URLs, PDFs, screenshots — anything you throw at it
-- **Information Equity** — Everyone deserves to understand what's happening in tech, regardless of background
+- **Zero tech background needed**: built for parents, students, and anyone curious about tech
+- **Auto jargon detection**: catches AI concepts, acronyms, buzzwords
+- **Clean HTML output**: difficulty levels, pronunciation guides, historical context
+- **Throw anything at it**: text, files, URLs, PDFs, screenshots
+- **Information equity**: tech shapes everyone's life, everyone should be able to follow along
 
 ### Installation
 
@@ -282,7 +280,7 @@ The skill will:
 1. Extract and analyze the content
 2. Identify all technical terms and jargon
 3. Generate plain-language explanations for each term
-4. Create a beautiful HTML glossary with:
+4. Create an HTML glossary with:
    - Difficulty levels (Entry → Master)
    - Pronunciation guides (IPA + Chinese phonetics)
    - Historical context (how the term evolved)
@@ -322,7 +320,7 @@ The skill will:
 
 ### What Gets Explained
 
-The skill identifies terms that would confuse someone with **zero computer science background**:
+Identifies terms that would confuse someone with **zero computer science background**:
 
 #### AI/ML Concepts
 - Prompt Engineering, Context Engineering, Harness Engineering
@@ -349,85 +347,79 @@ The skill identifies terms that would confuse someone with **zero computer scien
 Each glossary includes:
 
 #### Article Summary
-A 300-word plain-language summary that captures the key points without assuming any technical knowledge.
+300-word plain-language summary. No assumed knowledge.
 
 #### Glossary by Difficulty Level
 
-**Entry Level** — Basic concepts you might encounter in daily life
-- Example: "API" → "Application Programming Interface — like a restaurant menu that lets different software 'order' from each other"
+**Entry Level**: basics you might encounter in daily life
+- "API" → "Like a restaurant menu that lets different software 'order' from each other"
 
-**Intermediate** — Requires some context
-- Example: "Prompt Engineering" → "The art of learning how to talk to AI so it understands you better"
+**Intermediate**: needs a bit of context
+- "Prompt Engineering" → "Learning how to talk to AI so it gets what you mean"
 
-**Professional** — Industry practitioners use these
-- Example: "Context Window" → "The limit on how much content AI can 'remember' at once"
+**Professional**: industry practitioners use these daily
+- "Context Window" → "How much content AI can 'remember' at once"
 
-**Expert** — Deep technical concepts
-- Example: "Embedding" → "Converting text into numbers so AI can understand and compare"
+**Expert**: deep technical concepts
+- "Embedding" → "Turning text into numbers so AI can understand and compare"
 
-**Master** — Cutting-edge research
-- Example: "Harness Engineering" → "Designing AI's work environment and tools, rather than writing longer prompts"
+**Master**: cutting-edge research
+- "Harness Engineering" → "Designing AI's work environment and tools, way more effective than longer prompts"
 
 #### For Each Term
 
-- **Chinese Name** — 中文名称
-- **English Name** — Original term
-- **Pronunciation** — IPA phonetic + Chinese pronunciation guide
-- **Plain Explanation** — What it means in everyday language
-- **Historical Context** — How the term evolved (1-2 versions back)
-- **Timeline** — When it became popular
+- **Chinese Name**
+- **English Name**
+- **Pronunciation**: IPA + Chinese phonetic guide
+- **Plain Explanation**
+- **Historical Context**: how the term evolved
+- **Timeline**: when it became popular
 
 ### Architecture
 
-This skill uses a **progressive workflow**:
+Progressive workflow:
 
 | File | Purpose | When Used |
 |------|---------|-----------|
-| `SKILL.md` | Core workflow and rules | Always (skill invocation) |
-| `scripts/generate_glossary.py` | HTML generation logic | Phase 3 (output creation) |
-| `assets/glossary_template.html` | Visual template | Phase 3 (output creation) |
+| `SKILL.md` | Core workflow and rules | Every invocation |
+| `scripts/generate_glossary.py` | HTML generation | Phase 3 (output) |
+| `assets/glossary_template.html` | Visual template | Phase 3 (output) |
 
-The design follows the principle: "Make complex things accessible, not simplified."
+Principle: **Make complex things accessible. Keep every bit of information.**
 
-### Philosophy
+### Why This Exists
 
-This skill was born from the belief that:
+Simple idea: **your grandma should be able to read AI news too.**
 
-1. **Information should be accessible to everyone.** Your grandmother should be able to read AI news without feeling lost.
+Jargon exists for precision, but most of the time it becomes a wall. Going to the doctor and getting hit with medical terms you can't follow is stressful. Tech news has the same problem.
 
-2. **Jargon is a barrier, not a feature.** Technical terms exist for precision, but they shouldn't exclude people from understanding important developments.
+Easy Read keeps all the original information, just swaps in language real people actually use. Every term gets traced back to what it really means, with enough context to make it stick.
 
-3. **Context matters.** Knowing where a term came from helps you understand where it's going.
-
-4. **Beautiful design aids comprehension.** A well-designed glossary isn't just pretty — it helps you learn.
+Good design is part of the function. If it's easy on the eyes, it's easier on the brain.
 
 ### Requirements
 
 - [Claude Code](https://claude.ai/claude-code) CLI
-- Python 3.7+ (for glossary generation)
-- For web content: `web-access` skill or similar
+- Python 3.7+
+- For web content: `web-access` skill
 
 ### Example Output
 
-When you process an article about "Harness Engineering", you'll get a glossary that explains:
+Process an article about Harness Engineering and get a glossary like this:
 
-- **Harness Engineering** (Master) — "Designing AI's work environment and tools, not teaching it what to do"
-- **Prompt Engineering** (Intermediate) — "The art of learning how to talk to AI"
-- **Agent** (Professional) — "An AI program that can make decisions and use tools on its own"
-- **Context Window** (Expert) — "How much content AI can 'see' at once"
+- **Harness Engineering** (Master): "Designing AI's work environment and toolbox"
+- **Prompt Engineering** (Intermediate): "The skill of talking to AI effectively"
+- **Agent** (Professional): "An AI program that makes its own decisions and uses tools"
+- **Context Window** (Expert): "How much content AI can 'see' at once"
 
-Plus a 300-word summary explaining the article's main points in plain language.
+Plus a 300-word summary explaining the core in plain language.
 
 ---
 
 ## 致谢 | Credits
 
-Created by [@blakexu](https://github.com/blakexu) with Claude Code.
-
-Inspired by the belief that everyone deserves to understand the technology shaping our world.
-
-受信念启发：每个人都应该理解正在塑造我们世界的技术。
+[@blakexu](https://github.com/blakexu) 用 Claude Code 做的。
 
 ## 许可证 | License
 
-MIT — Use it, modify it, share it. | 使用它，修改它，分享它。
+MIT. 随便用，随便改，随便分享。
