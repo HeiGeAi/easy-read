@@ -34,11 +34,13 @@ Accept ANY of the following:
 ### Step 1: Extract and Read Content
 
 First, extract the content from whatever format the user provided:
-- For files: use Read tool
-- For URLs: use WebFetch or web_access skill
+- For files: read the file content (any text-based format)
+- For URLs: fetch the web page content
 - For compressed files: extract first, then read
-- For PDFs: use Read with appropriate page ranges
-- For images/screenshots: use vision tools to extract text
+- For PDFs: read the PDF content (specify page ranges for large files)
+- For images/screenshots: use OCR or vision capabilities to extract text
+
+> **Agent compatibility**: Use whatever file reading, web fetching, and vision tools your runtime provides. The specific tool names vary by agent (Claude Code, Codex, OpenClaw, Cursor, etc.), but the goal is the same: get the text content out.
 
 ### Step 2: Analyze and Identify Jargon
 
@@ -223,54 +225,48 @@ Use the provided HTML template in `assets/glossary_template.html`. The design sh
 
 ### Step-by-step workflow:
 
-1. **Read the content**
-   ```python
-   # Use appropriate tool based on input type
-   # For files: Read tool
-   # For URLs: WebFetch or web_access
-   # For images: vision tools
-   ```
+1. **Read the content**: Use your runtime's file/URL/vision tools to extract text
+2. **Analyze and extract jargon**: Identify terms, classify by difficulty level
+3. **Generate explanations**: Write plain language explanation + pronunciation (English terms) + history
+4. **Create summary**: 300-character plain language summary, no jargon
+5. **Generate HTML**: Build a JSON object matching the schema below, then either:
+   - **Option A (recommended)**: Run `python3 scripts/generate_glossary.py data.json output.html` to generate from template
+   - **Option B**: Pipe JSON via stdin: `echo '...' | python3 scripts/generate_glossary.py - output.html`
+   - **Option C**: If Python is unavailable, directly generate HTML following the template structure
+6. **Save output**: Save to the output directory (see below), filename: `glossary_YYYYMMDD_HHMMSS.html`
 
-2. **Analyze and extract jargon**
-   ```python
-   # Identify all terms that need explanation
-   # Classify by difficulty level
-   # Gather context for each term
-   ```
-
-3. **Generate explanations**
-   ```python
-   # For each term:
-   # - Write plain language explanation
-   # - Add pronunciation help (for English terms)
-   # - Add historical context (if relevant)
-   # - Add time reference (if relevant)
-   ```
-
-4. **Create summary**
-   ```python
-   # Write 300-character summary
-   # Use plain language
-   # Avoid jargon
-   ```
-
-5. **Generate HTML**
-   ```python
-   # Use the template from assets/glossary_template.html
-   # Populate with data
-   # Save to user's desktop/claudecode output folder
-   ```
-
-6. **Save output**
-   ```python
-   # Save to: ~/Desktop/claudecode/easy-read-output/
-   # Filename: glossary_YYYYMMDD_HHMMSS.html
-   # Tell user where the file is saved
-   ```
+**JSON Schema for generate_glossary.py:**
+```json
+{
+  "summary": "300 字大白话摘要",
+  "terms": {
+    "beginner": [
+      {
+        "name": "术语名",
+        "is_english": true,
+        "ipa": "/IPA 音标/",
+        "chinese_pronunciation": "中式发音",
+        "explanation": "大白话解释",
+        "history": "历史背景（可选）",
+        "timeline": "时间线（可选）",
+        "what_is": "是什么（产品/人物用，可选）",
+        "why_important": "为什么重要（产品/人物用，可选）"
+      }
+    ],
+    "intermediate": [],
+    "professional": [],
+    "advanced": [],
+    "expert": []
+  }
+}
+```
 
 ## Output Location
 
-Always save output to: `~/Desktop/claudecode/easy-read-output/`
+Save output to the following path (按优先级）:
+1. If user specified a path, use that
+2. `~/Desktop/claudecode/easy-read-output/` (Claude Code default)
+3. `~/Desktop/easy-read-output/` (generic fallback)
 
 Create the directory if it doesn't exist. Use timestamp in filename to avoid overwriting.
 
@@ -293,8 +289,8 @@ Tell the user:
 4. Generate explanations in plain language
 5. Create 300-char summary
 6. Generate beautiful HTML
-7. Save to ~/Desktop/claudecode/easy-read-output/glossary_20260416_143022.html
-8. Tell user: "我已经为你生成了一个词汇表，保存在桌面的 claudecode/easy-read-output 文件夹里。打开 HTML 文件就能看到所有术语的解释，都是用最简单的语言写的。如果想深入了解某个词，随时问我！"
+7. Save to output directory, e.g. `~/Desktop/easy-read-output/glossary_20260416_143022.html`
+8. Tell user where the file is saved, and remind them they can open it in a browser, print to PDF, or ask you questions about any term
 
 ## Quality Checklist
 

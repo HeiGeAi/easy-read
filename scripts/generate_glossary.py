@@ -1,13 +1,54 @@
 #!/usr/bin/env python3
 """
 Generate HTML glossary from jargon analysis results.
+
+Usage:
+    python3 generate_glossary.py <data.json> <output.html>
+    python3 generate_glossary.py - <output.html>          # read JSON from stdin
+    python3 generate_glossary.py --help
+
+Arguments:
+    data.json    Path to the JSON analysis file, or "-" to read from stdin.
+    output.html  Path for the generated HTML output.
 """
 
 import html
 import json
 import sys
-from datetime import datetime
 from pathlib import Path
+
+
+USAGE = """\
+Usage: python3 generate_glossary.py <data.json> <output.html>
+       python3 generate_glossary.py - <output.html>          # read JSON from stdin
+
+Arguments:
+    data.json    Path to the JSON analysis file, or "-" to read from stdin.
+    output.html  Path for the generated HTML output.
+
+Options:
+    --help, -h   Show this help message and exit.
+"""
+
+
+def esc(text):
+    """HTML-escape user content to prevent XSS."""
+    return html.escape(str(text)) if text else ''
+
+
+def validate_data(data):
+    """Validate the loaded JSON data, return a list of error messages (empty = OK)."""
+    errors = []
+    if not isinstance(data, dict):
+        errors.append("JSON 顶层必须是对象（dict），实际类型: %s" % type(data).__name__)
+        return errors
+
+    if 'terms' not in data:
+        errors.append("JSON 中缺少 'terms' 字段")
+    elif not isinstance(data['terms'], dict):
+        errors.append("'terms' 字段必须是对象（dict），实际类型: %s" % type(data['terms']).__name__)
+
+    return errors
 
 
 def generate_html(data, template_path, output_path):
@@ -17,8 +58,11 @@ def generate_html(data, template_path, output_path):
     with open(template_path, 'r', encoding='utf-8') as f:
         template = f.read()
 
-    # Generate summary section
-    summary = data.get('summary', '暂无摘要')
+    # Generate summary section — catch empty strings, not just missing keys
+    summary = data.get('summary', '') or ''
+    summary = summary.strip()
+    if not summary:
+        summary = '暂无摘要'
 
     # Generate glossary sections
     difficulty_levels = [
@@ -36,13 +80,13 @@ def generate_html(data, template_path, output_path):
         if not terms:
             continue
 
-        section_html = f'''
+        section_html = '''
         <div class="difficulty-section">
             <div class="difficulty-header">
-                <span class="difficulty-badge {level_class}">{level_name}</span>
-                <span class="difficulty-title">{level_name}术语</span>
+                <span class="difficulty-badge {cls}">{name}</span>
+                <span class="difficulty-title">{name}术语</span>
             </div>
-        '''
+        '''.format(cls=level_class, name=level_name)
 
         for term in terms:
             term_html = generate_term_card(term)
@@ -51,21 +95,16 @@ def generate_html(data, template_path, output_path):
         section_html += '</div>'
         glossary_html.append(section_html)
 
-    # Replace placeholders
-    html = template.replace('{{SUMMARY}}', summary)
-    html = html.replace('{{GLOSSARY_SECTIONS}}', '\n'.join(glossary_html))
+    # Replace placeholders — escape summary to prevent XSS
+    output_html = template.replace('{{SUMMARY}}', esc(summary))
+    output_html = output_html.replace('{{GLOSSARY_SECTIONS}}', '\n'.join(glossary_html))
 
     # Write output
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with open(output_path, 'w', encoding='utf-8') as f:
-        f.write(html)
+        f.write(output_html)
 
     return output_path
-
-
-def esc(text):
-    """HTML-escape user content to prevent XSS."""
-    return html.escape(str(text)) if text else ''
 
 
 def generate_term_card(term):
@@ -78,50 +117,51 @@ def generate_term_card(term):
 
     # Term name
     if is_english:
-        card_html += f'<div class="term-name"><span class="english">{name}</span></div>'
+        card_html += '<div class="term-name"><span class="english">%s</span></div>' % name
     else:
-        card_html += f'<div class="term-name">{name}</div>'
+        card_html += '<div class="term-name">%s</div>' % name
 
     # Pronunciation (for English terms)
     if is_english and term.get('ipa'):
-        card_html += f'<div class="pronunciation">{esc(term["ipa"])}</div>'
+        card_html += '<div class="pronunciation">%s</div>' % esc(term["ipa"])
 
     if is_english and term.get('chinese_pronunciation'):
-        card_html += f'<div class="pronunciation-help">{esc(term["chinese_pronunciation"])}</div>'
+        card_html += '<div class="pronunciation-help">%s</div>' % esc(term["chinese_pronunciation"])
 
-    # Explanation
-    explanation = term.get('explanation', '')
-    if explanation:
-        card_html += f'<div class="term-explanation">{esc(explanation)}</div>'
+    # Explanation — fallback to "暂无解释" when missing or empty
+    explanation = (term.get('explanation', '') or '').strip()
+    if not explanation:
+        explanation = '暂无解释'
+    card_html += '<div class="term-explanation">%s</div>' % esc(explanation)
 
     # What it is (for products/people)
     if term.get('what_is'):
-        card_html += f'''
+        card_html += '''
         <div class="term-section">
             <div class="term-label">是什么：</div>
-            <div class="term-content">{esc(term["what_is"])}</div>
+            <div class="term-content">%s</div>
         </div>
-        '''
+        ''' % esc(term["what_is"])
 
     # Why important (for products/people)
     if term.get('why_important'):
-        card_html += f'''
+        card_html += '''
         <div class="term-section">
             <div class="term-label">为什么重要：</div>
-            <div class="term-content">{esc(term["why_important"])}</div>
+            <div class="term-content">%s</div>
         </div>
-        '''
+        ''' % esc(term["why_important"])
 
     # Historical context
     if term.get('history'):
-        card_html += f'''
+        card_html += '''
         <div class="history">
             <div class="term-label">历史背景：</div>
-            <div class="term-content">{esc(term["history"])}</div>
-        '''
+            <div class="term-content">%s</div>
+        ''' % esc(term["history"])
 
         if term.get('timeline'):
-            card_html += f'<div class="timeline">⏰ {esc(term["timeline"])}</div>'
+            card_html += '<div class="timeline">⏰ %s</div>' % esc(term["timeline"])
 
         card_html += '</div>'
 
@@ -134,24 +174,47 @@ def generate_term_card(term):
 
 
 def main():
+    # --help / -h
+    if '--help' in sys.argv or '-h' in sys.argv:
+        print(USAGE)
+        sys.exit(0)
+
     if len(sys.argv) < 3:
-        print("Usage: python generate_glossary.py <data.json> <output.html>")
+        print(USAGE, file=sys.stderr)
         sys.exit(1)
 
-    data_path = Path(sys.argv[1])
+    data_arg = sys.argv[1]
     output_path = Path(sys.argv[2])
 
     # Get template path
     script_dir = Path(__file__).parent
     template_path = script_dir.parent / 'assets' / 'glossary_template.html'
 
-    # Load data
-    with open(data_path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
+    # Load data — support stdin via "-"
+    try:
+        if data_arg == '-':
+            data = json.load(sys.stdin)
+        else:
+            data_path = Path(data_arg)
+            with open(data_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+    except json.JSONDecodeError as e:
+        print("错误: JSON 解析失败 — %s" % e, file=sys.stderr)
+        sys.exit(1)
+    except FileNotFoundError:
+        print("错误: 文件不存在 — %s" % data_arg, file=sys.stderr)
+        sys.exit(1)
+
+    # Validate data
+    errors = validate_data(data)
+    if errors:
+        for err in errors:
+            print("错误: %s" % err, file=sys.stderr)
+        sys.exit(1)
 
     # Generate HTML
     result = generate_html(data, template_path, output_path)
-    print(f"Generated: {result}")
+    print("Generated: %s" % result)
 
 
 if __name__ == '__main__':
