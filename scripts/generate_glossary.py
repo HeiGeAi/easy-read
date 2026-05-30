@@ -3,6 +3,7 @@
 Generate HTML glossary from jargon analysis results.
 """
 
+import html
 import json
 import sys
 from datetime import datetime
@@ -24,8 +25,8 @@ def generate_html(data, template_path, output_path):
         ('beginner', '入门级', 'difficulty-beginner'),
         ('intermediate', '进阶级', 'difficulty-intermediate'),
         ('professional', '专业级', 'difficulty-professional'),
-        ('advanced', '资深级', 'difficulty-advanced'),
-        ('expert', '专家级', 'difficulty-expert'),
+        ('advanced', '专家级', 'difficulty-advanced'),
+        ('expert', '大师级', 'difficulty-expert'),
     ]
 
     glossary_html = []
@@ -62,10 +63,15 @@ def generate_html(data, template_path, output_path):
     return output_path
 
 
+def esc(text):
+    """HTML-escape user content to prevent XSS."""
+    return html.escape(str(text)) if text else ''
+
+
 def generate_term_card(term):
     """Generate HTML for a single term card."""
 
-    name = term.get('name', '')
+    name = esc(term.get('name', ''))
     is_english = term.get('is_english', False)
 
     card_html = '<div class="term-card">'
@@ -78,22 +84,22 @@ def generate_term_card(term):
 
     # Pronunciation (for English terms)
     if is_english and term.get('ipa'):
-        card_html += f'<div class="pronunciation">{term["ipa"]}</div>'
+        card_html += f'<div class="pronunciation">{esc(term["ipa"])}</div>'
 
     if is_english and term.get('chinese_pronunciation'):
-        card_html += f'<div class="pronunciation-help">{term["chinese_pronunciation"]}</div>'
+        card_html += f'<div class="pronunciation-help">{esc(term["chinese_pronunciation"])}</div>'
 
     # Explanation
     explanation = term.get('explanation', '')
     if explanation:
-        card_html += f'<div class="term-explanation">{explanation}</div>'
+        card_html += f'<div class="term-explanation">{esc(explanation)}</div>'
 
     # What it is (for products/people)
     if term.get('what_is'):
         card_html += f'''
         <div class="term-section">
             <div class="term-label">是什么：</div>
-            <div class="term-content">{term["what_is"]}</div>
+            <div class="term-content">{esc(term["what_is"])}</div>
         </div>
         '''
 
@@ -102,7 +108,7 @@ def generate_term_card(term):
         card_html += f'''
         <div class="term-section">
             <div class="term-label">为什么重要：</div>
-            <div class="term-content">{term["why_important"]}</div>
+            <div class="term-content">{esc(term["why_important"])}</div>
         </div>
         '''
 
@@ -111,11 +117,11 @@ def generate_term_card(term):
         card_html += f'''
         <div class="history">
             <div class="term-label">历史背景：</div>
-            <div class="term-content">{term["history"]}</div>
+            <div class="term-content">{esc(term["history"])}</div>
         '''
 
         if term.get('timeline'):
-            card_html += f'<div class="timeline">⏰ {term["timeline"]}</div>'
+            card_html += f'<div class="timeline">⏰ {esc(term["timeline"])}</div>'
 
         card_html += '</div>'
 

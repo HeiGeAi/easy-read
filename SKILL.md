@@ -59,8 +59,8 @@ Classify each term by expertise level (专业等级):
 - **入门级** (Beginner): Basic concepts everyone should know (ChatGPT, AI, 大模型)
 - **进阶级** (Intermediate): Common industry terms (API, Prompt, Agent)
 - **专业级** (Professional): Specialized concepts (Context Engineering, Harness)
-- **资深级** (Advanced): Deep technical concepts (RAG, embedding, fine-tuning)
-- **专家级** (Expert): Cutting-edge or highly specialized (Agentic workflows, prompt caching)
+- **专家级** (Advanced): Deep technical concepts (RAG, embedding, fine-tuning)
+- **大师级** (Expert): Cutting-edge or highly specialized (Agentic workflows, prompt caching)
 
 ### Step 3: Generate Output
 
@@ -73,7 +73,7 @@ Create a beautiful, interactive HTML page with:
    - Avoid using jargon in the summary itself
 
 2. **Glossary** (词汇表)
-   - Organized by difficulty level (入门级 → 进阶级 → 专业级 → 资深级 → 专家级)
+   - Organized by difficulty level (入门级 → 进阶级 → 专业级 → 专家级 → 大师级)
    - Within each level, sort alphabetically
    - For each term, provide:
 
@@ -89,13 +89,74 @@ Create a beautiful, interactive HTML page with:
 **For English terms:**
 ```
 Term Name
-├─ 音标：[IPA phonetic notation]
-├─ 中式发音提示：用中文拼音或常见字帮助发音（如 "Harness" → "哈内斯，类似'哈尼斯'"）
+├─ 音标：[IPA phonetic notation]（必须查下方参考表，表里没有的按生成规则来）
+├─ 中式发音提示：用中文近似音帮助发音（如 "Harness" → "哈尼斯"）
 ├─ 人话解释：用最简单的语言解释
 ├─ 历史背景：如果有演进历史，简要说明
 ├─ 相关时间：大概的时间点
 └─ 深入了解：提示用户"想了解更多，可以继续对话"
 ```
+
+**⚠️ 音标生成规则（严格遵守）：**
+
+1. **先查表再生成**：下方参考表里有的术语，直接用表里的 IPA，禁止自行编造
+2. **缩写词逐字母拼读**：API → /ˌeɪ.piːˈaɪ/，CLI → /ˌsiː.el.ˈaɪ/，不要把缩写读成单词（除非本身就作为单词读，如 SaaS /sæs/、RAM /ræm/、RAG /ræɡ/）
+3. **合成词分段标注**：Backend → /ˈbæk.end/，Full-stack → /fʊl stæk/
+4. **拿不准就只给中式发音**：如果不确定某个术语的准确 IPA，只提供中式发音提示，不要硬写一个可能错误的音标
+5. **中式发音用常见汉字**：选用大众熟悉的字，避免生僻字。用"斯"代替"丝"，用"特"代替"忒"
+
+**高频术语音标参考表：**
+
+| 术语 | IPA | 中式发音 |
+|------|-----|----------|
+| Agent | /ˈeɪ.dʒənt/ | 诶珍特 |
+| Algorithm | /ˈæl.ɡə.rɪ.ðəm/ | 阿尔戈里瑟姆 |
+| Anthropic | /æn.ˈθrɑː.pɪk/ | 安斯若匹克 |
+| API | /ˌeɪ.piːˈaɪ/ | 诶皮艾 |
+| Artificial | /ˌɑːr.tɪˈfɪʃ.əl/ | 阿提费舍尔 |
+| Backend | /ˈbæk.end/ | 拜肯德 |
+| Benchmark | /ˈbentʃ.mɑːrk/ | 本奇马克 |
+| Cache | /kæʃ/ | 凯什 |
+| Claude | /klɔːd/ | 克劳德 |
+| CLI | /ˌsiː.el.ˈaɪ/ | 西诶尔艾 |
+| Cluster | /ˈklʌs.tər/ | 克拉斯特 |
+| Context | /ˈkɑːn.tekst/ | 康泰克斯特 |
+| Dashboard | /ˈdæʃ.bɔːrd/ | 戴什波德 |
+| Database | /ˈdeɪ.tə.beɪs/ | 得特贝斯 |
+| Deployment | /dɪˈplɔɪ.mənt/ | 迪普罗伊门特 |
+| Docker | /ˈdɑː.kər/ | 多克尔 |
+| Embedding | /ɪmˈbed.ɪŋ/ | 嵌贝丁 |
+| Engineering | /ˌen.dʒɪˈnɪr.ɪŋ/ | 恩吉尼尔瑞恩 |
+| Fine-tuning | /faɪn ˈtjuː.nɪŋ/ | 法恩图宁 |
+| Framework | /ˈfreɪm.wɜːrk/ | 弗瑞姆沃克 |
+| Frontend | /ˈfrʌnt.end/ | 弗朗特恩德 |
+| Full-stack | /fʊl stæk/ | 福尔斯泰克 |
+| Generative | /ˈdʒen.ər.ə.tɪv/ | 杰纳瑞提夫 |
+| GPU | /ˌdʒiː.piːˈjuː/ | 吉皮优 |
+| GPT | /ˌdʒiː.piːˈtiː/ | 吉皮提 |
+| Hallucination | /hə.ˌluː.sɪˈneɪ.ʃən/ | 哈卢斯内申 |
+| Harness | /ˈhɑːr.nɪs/ | 哈尼斯 |
+| Inference | /ˈɪn.fər.əns/ | 因弗润斯 |
+| Intelligence | /ɪn.ˈtel.ɪ.dʒəns/ | 因泰利珍斯 |
+| Kubernetes | /kuː.bərˈnet.iːz/ | 库伯奈提斯 |
+| Latency | /ˈleɪ.tən.si/ | 雷特恩西 |
+| LLM | /ˌel.el.ˈem/ | 诶尔诶尔艾姆 |
+| Model | /ˈmɑː.dəl/ | 莫德尔 |
+| Neural | /ˈnʊr.əl/ | 纽若尔 |
+| NLP | /ˌen.el.ˈpiː/ | 恩诶尔皮 |
+| Open Source | /ˌoʊ.pən ˈsɔːrs/ | 欧盆索斯 |
+| Parameter | /pəˈræm.ɪ.tər/ | 帕瑞米特 |
+| Pipeline | /ˈpaɪp.laɪn/ | 派普莱恩 |
+| Prompt | /prɑːmpt/ | 普朗普特 |
+| RAG | /ræɡ/ | 瑞格 |
+| Repository | /rɪˈpɑː.zə.tɔːr.i/ | 瑞帕字托瑞 |
+| Retrieval | /rɪˈtriː.vəl/ | 瑞吹沃 |
+| SaaS | /sæs/ | 萨斯 |
+| Scalable | /ˈskeɪ.lə.bəl/ | 斯凯勒波 |
+| SDK | /ˌes.diːˈkeɪ/ | 诶斯迪凯 |
+| Token | /ˈtoʊ.kən/ | 头肯 |
+| Transformer | /trænsˈfɔːr.mər/ | 吹安斯佛默 |
+| Workflow | /ˈwɜːrk.floʊ/ | 沃克弗洛 |
 
 **For product/people names:**
 ```
@@ -202,14 +263,14 @@ Use the provided HTML template in `assets/glossary_template.html`. The design sh
 
 6. **Save output**
    ```python
-   # Save to: ~/Desktop/claudecode/jargon-translator-output/
+   # Save to: ~/Desktop/claudecode/easy-read-output/
    # Filename: glossary_YYYYMMDD_HHMMSS.html
    # Tell user where the file is saved
    ```
 
 ## Output Location
 
-Always save output to: `~/Desktop/claudecode/jargon-translator-output/`
+Always save output to: `~/Desktop/claudecode/easy-read-output/`
 
 Create the directory if it doesn't exist. Use timestamp in filename to avoid overwriting.
 
@@ -232,8 +293,8 @@ Tell the user:
 4. Generate explanations in plain language
 5. Create 300-char summary
 6. Generate beautiful HTML
-7. Save to ~/Desktop/claudecode/jargon-translator-output/glossary_20260416_143022.html
-8. Tell user: "我已经为你生成了一个词汇表，保存在桌面的 claudecode/jargon-translator-output 文件夹里。打开 HTML 文件就能看到所有术语的解释，都是用最简单的语言写的。如果想深入了解某个词，随时问我！"
+7. Save to ~/Desktop/claudecode/easy-read-output/glossary_20260416_143022.html
+8. Tell user: "我已经为你生成了一个词汇表，保存在桌面的 claudecode/easy-read-output 文件夹里。打开 HTML 文件就能看到所有术语的解释，都是用最简单的语言写的。如果想深入了解某个词，随时问我！"
 
 ## Quality Checklist
 
