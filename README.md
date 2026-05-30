@@ -1,6 +1,6 @@
 # Easy Read | 人话翻译器
 
-把看不懂的科技文章，变成谁都能看懂的大白话词汇表。
+把看不懂的东西，变成谁都能看懂的大白话词汇表。
 
 [English](#english) | [中文](#中文)
 
@@ -10,22 +10,48 @@
 
 ### 这是什么
 
-你有没有过这种体验：刷到一篇 AI 新闻，标题写着"基于 RAG 的 Agentic Workflow 实现了 Context Engineering 的范式跃迁"。
+你有没有过这种体验：
 
-每个字你都认识，连起来就是天书。
+- 刷到一篇 AI 新闻，标题写着"基于 RAG 的 Agentic Workflow 实现了 Context Engineering 的范式跃迁"
+- 拿到体检报告，上面写着"TSH 偏高，建议排查甲状腺功能亢进"
+- 签合同前想看看条款，满眼"不可抗力""连带责任""仲裁管辖"
+- 想学理财，基金说明书里全是"PE""ROE""夏普比率"
 
-**Easy Read 就干一件事：把这句话翻译成人话。**
+**每个字你都认识，连起来就是天书。**
 
-> 翻译前：「基于 RAG 的 Agentic Workflow 实现了 Context Engineering 的范式跃迁」
+Easy Read 就干一件事：**把这些话翻译成人话。**
+
+> 🤖 翻译前：「基于 RAG 的 Agentic Workflow...」
+> ✅ 翻译后：「让 AI 回答问题前先查资料（像考试允许翻书），然后自己规划步骤完成任务。」
 >
-> 翻译后：「让 AI 在回答问题前先去查资料（像考试允许翻书），然后自己规划步骤完成任务，效果比光靠提示词好得多。」
+> 🏥 翻译前：「TSH 偏高，建议排查甲状腺功能亢进」
+> ✅ 翻译后：「甲状腺激素的指挥官（TSH）数值偏高，可能是甲状腺太亢奋了，在加班加点分泌激素。需要进一步检查确认。」
+>
+> ⚖️ 翻译前：「因不可抗力导致的违约不承担连带责任」
+> ✅ 翻译后：「如果是地震、洪水、战争这种谁都控制不了的事导致没法履行合同，不用赔钱，也不用替别人背锅。」
 
 它会把文章里所有你看不懂的术语，自动整理成一份**带发音、带解释、带来龙去脉的词汇表**，生成好看的 HTML 页面。打开就能看，存下来还能转发给爸妈。
 
+### 支持的领域
+
+| | 领域 | 典型场景 |
+|---|------|----------|
+| 🤖 | AI / 科技 | 科技新闻、产品发布、技术博客 |
+| 🏥 | 医学 / 健康 | 体检报告、药品说明书、医学新闻 |
+| ⚖️ | 法律 | 合同条款、判决书、法律新闻 |
+| 💰 | 金融 / 财经 | 财报、基金说明书、经济分析 |
+| 📚 | 学术论文 | 跨学科论文、研究报告 |
+| 📋 | 政策文件 | 政府白皮书、红头文件、政策解读 |
+| 🎮 | 游戏 | 更新日志、游戏机制、攻略 |
+| 🔗 | 区块链 / Web3 | 白皮书、DeFi 术语 |
+| 🔧 | 硬件 / 数码 | 手机评测、电脑配置、参数对比 |
+| 📖 | **任何领域** | **只要你看不懂，就能翻译** |
+
 ### 主要功能
 
-- **零门槛**：完全不懂技术也能用，给家人看科技新闻就靠它
-- **自动抓术语**：AI 概念、缩写、流行梗，一个不漏
+- **零门槛**：完全不懂这个领域也能用，给家人看专业内容就靠它
+- **自动识别领域**：扔进去的内容是什么领域，它自己判断
+- **自动抓术语**：专业概念、缩写、行话，一个不漏
 - **输出好看**：HTML 词汇表，带难度等级、发音指南、来龙去脉
 - **格式随便扔**：文本、文件、网址、PDF、截图都行
 - **全 Agent 通用**：Claude Code、Codex、Cursor、Cline 都能跑
@@ -240,13 +266,17 @@ Skill 会：
 
 只要是**你奶奶看不懂的词**，它都会抓出来解释：
 
-🤖 **AI 黑话**：Agent、LLM、RAG、Embedding、Prompt Engineering、Fine-tuning... 这些圈内人天天说但圈外人一脸懵的词
+🤖 **AI 黑话**：Agent、LLM、RAG、Embedding... 圈内人天天说但圈外人一脸懵的词
 
-🔧 **技术术语**：API、SDK、CLI、Framework、Backend、Frontend... 程序员的日常用语，普通人的密码本
+🏥 **医学天书**：转氨酶、甲亢、HbA1c、MRI 增强... 体检报告上让你焦虑的那些指标
 
-🔤 **缩写轰炸**：GPT、NLP、SaaS、PaaS... 三个字母能组成一个新世界
+⚖️ **法律黑话**：不可抗力、善意取得、连带责任... 合同里你假装看懂但其实没看懂的条款
 
-🎮 **文化梗**：游戏引用、网络热梗、科技史事件... 连"只狼"和"全面战争"出现在技术文章里都会解释为什么
+💰 **金融密码**：PE、ROE、可转债、量化宽松... 理财文章里让你觉得自己不配赚钱的词
+
+📚 **学术八股**：p值、置信区间、meta分析... 论文里那些让你怀疑自己学历的术语
+
+🎮 **游戏/数码/区块链/政策文件**... 任何领域的专业词汇都能翻译
 
 ### 输出长什么样
 
@@ -294,16 +324,37 @@ Easy Read 做的就是"网球肘"这一步：**保留原文的信息量，换一
 
 ### What This Does
 
-Ever read an AI headline like "RAG-based Agentic Workflows achieve Context Engineering paradigm shift" and understood exactly zero words?
+Ever been in one of these situations?
 
-**Easy Read turns that into:** "AI now looks up reference materials before answering (like an open-book exam), then plans its own steps to finish the task. Works way better than just writing longer prompts."
+- AI article: "RAG-based Agentic Workflows achieve Context Engineering paradigm shift" → ???
+- Medical report: "Elevated TSH, recommend thyroid function assessment" → panic
+- Legal contract: "Force majeure events shall exempt joint and several liability" → just sign and pray
+- Finance: "The fund's Sharpe ratio underperforms its benchmark's risk-adjusted alpha" → maybe I'll just keep my money in a sock
 
-It grabs every piece of jargon from an article, translates it into plain language, and generates a **glossary with pronunciation guides, difficulty levels, and historical context** as a clean HTML page. Open it, read it, send it to your parents.
+**Every word makes sense alone. Together, they're hieroglyphics.**
+
+Easy Read translates any of those into plain language, then generates a **glossary with pronunciation guides, difficulty levels, and historical context** as a clean HTML page.
+
+### Supported Domains
+
+| | Domain | Typical Scenarios |
+|---|--------|-------------------|
+| 🤖 | AI / Tech | Tech news, product launches, dev blogs |
+| 🏥 | Medical | Lab reports, drug labels, medical news |
+| ⚖️ | Legal | Contracts, court rulings, legal news |
+| 💰 | Finance | Earnings reports, fund prospectuses, economic analysis |
+| 📚 | Academic | Cross-discipline papers, research reports |
+| 📋 | Policy | Government white papers, regulatory docs |
+| 🎮 | Gaming | Patch notes, game mechanics, guides |
+| 🔗 | Crypto / Web3 | Whitepapers, DeFi terms |
+| 🔧 | Hardware | Phone reviews, PC specs, benchmarks |
+| 📖 | **Anything** | **If you can't understand it, we can translate it** |
 
 ### Key Features
 
-- **Zero tech background needed**: built for parents, students, and anyone curious about tech
-- **Auto jargon detection**: AI concepts, acronyms, buzzwords, cultural references
+- **Zero background needed**: don't know the field? That's the whole point
+- **Auto domain detection**: figures out what field the content is from
+- **Auto jargon detection**: catches specialist terms, acronyms, jargon from any domain
 - **Clean HTML output**: difficulty levels, pronunciation guides, historical context
 - **Throw anything at it**: text, files, URLs, PDFs, screenshots
 - **Works with any agent**: Claude Code, Codex, Cursor, Cline, and more
@@ -518,13 +569,17 @@ The skill will:
 
 If **your grandma wouldn't know the word**, it gets caught and explained:
 
-🤖 **AI jargon**: Agent, LLM, RAG, Embedding, Prompt Engineering, Fine-tuning...
+🤖 **AI jargon**: Agent, LLM, RAG, Embedding... insider language that outsiders can't parse
 
-🔧 **Tech terms**: API, SDK, CLI, Framework, Backend, Frontend...
+🏥 **Medical gibberish**: ALT, TSH, HbA1c, MRI contrast... the numbers on your lab report that make you anxious
 
-🔤 **Acronym soup**: GPT, NLP, SaaS, PaaS... three letters, infinite confusion
+⚖️ **Legal speak**: force majeure, indemnification, arbitration... contract clauses you pretend to understand
 
-🎮 **Cultural refs**: game references, memes, tech history events
+💰 **Finance codes**: PE, ROE, convertible bonds, QE... terms that make you feel unworthy of managing money
+
+📚 **Academic jargon**: p-value, confidence interval, meta-analysis... words that make you question your degree
+
+🎮 **Gaming / hardware / crypto / policy docs**... any domain's specialist vocabulary
 
 ### Output Format
 
@@ -544,7 +599,7 @@ Every term also includes **pronunciation guide** (IPA + Chinese phonetics) and *
 
 You go to the doctor. They say "you have lateral epicondylitis." You panic. Then they say "it's tennis elbow." Instant relief.
 
-Tech news does the first thing to people every single day.
+Tech news, legal contracts, financial reports, medical results, academic papers... they all do the first thing to people every single day.
 
 Easy Read is the "tennis elbow" step: **keep all the information, swap in words real people actually use.**
 

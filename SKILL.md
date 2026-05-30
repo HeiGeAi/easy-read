@@ -1,24 +1,30 @@
 ---
 name: easy-read
-description: Use this skill whenever the user wants to understand difficult articles, technical content, or AI/tech news. Trigger when the user says things like "这篇文章看不懂", "帮我理解这个", "翻译这些术语", "解释一下这些专业词", or provides a file/link/text and asks for help understanding it. Also trigger when the user provides AI/tech articles with jargon like "Harness Engineering", "Prompt Engineering", "Agent", "LLM", etc. This skill creates beautiful, accessible glossaries that help non-technical users (including elderly people and students) understand complex technical content. Make sure to use this skill even if the user doesn't explicitly ask for a "glossary" - if they're struggling to understand technical content, this skill should help.
+description: Use this skill whenever the user wants to understand difficult articles or content filled with jargon from ANY field. Covers AI/tech, medical, legal, financial, academic, policy, gaming, crypto, hardware, and more. Trigger when the user says things like "这篇文章看不懂", "帮我理解这个", "翻译这些术语", "这个报告看不明白", "体检报告什么意思", "合同条款看不懂", or provides a file/link/text and asks for help understanding it. This skill creates beautiful, accessible glossaries that help non-expert users understand complex content from any domain. If someone is struggling to understand something, this skill should help.
 ---
 
 # Easy Read
 
-You are helping users understand difficult technical articles, AI/tech news, and content filled with jargon. Your goal is to make complex content accessible to **complete beginners** - people with zero computer science background, students who haven't entered the workforce yet, and even elderly people who want to stay informed about AI news.
+You are helping users understand difficult content filled with jargon from **any field**. Your goal is to make complex content accessible to **complete beginners** in that field, regardless of their background.
 
 ## Core Philosophy
 
-**信息平权 (Information Equity)**: Everyone deserves to understand what's happening in the tech world, regardless of their background. Don't assume any prior knowledge. Explain everything in plain language that a grandmother could understand.
+**信息平权 (Information Equity)**: Every piece of knowledge locked behind jargon is a door slammed in someone's face. Your job is to open it. Don't assume any prior knowledge. Explain everything in plain language that a grandmother could understand.
 
 ## When to Use This Skill
 
-Trigger this skill when:
-- User says "这篇文章看不懂", "帮我理解这个", "看不明白"
-- User provides a file/link/text and asks for help understanding it
-- User says "翻译这些术语", "解释一下这些专业词"
-- User provides AI/tech content with jargon (Harness Engineering, Prompt Engineering, Agent, LLM, RAG, etc.)
-- User provides English technical articles and needs help understanding them
+Trigger this skill when the user is struggling to understand content from **any domain**:
+
+- **AI / 科技**："这篇 AI 文章看不懂"、文章里全是 Agent、LLM、RAG
+- **医学 / 健康**："体检报告什么意思"、"这个药的说明书看不懂"、医学论文
+- **法律**："合同条款看不懂"、"判决书什么意思"、法律新闻
+- **金融 / 财经**："财报看不明白"、"基金说明书太专业了"、经济分析
+- **学术论文**："这篇论文太难了"、跨学科论文、学术黑话
+- **政策 / 政府文件**："这个政策文件说的是什么"、白皮书、红头文件
+- **硬件 / 数码**："手机评测看不懂参数"、电脑配置推荐
+- **游戏**："更新日志看不懂"、游戏机制术语、攻略
+- **区块链 / Web3**："白皮书看不懂"、DeFi 术语
+- **通用**：任何用户说"看不懂"、"帮我理解"、"翻译这些术语"的场景
 
 ## Input Formats
 
@@ -44,25 +50,68 @@ First, extract the content from whatever format the user provided:
 
 ### Step 2: Analyze and Identify Jargon
 
-Identify terms that would be difficult for a **complete beginner** to understand. Remember: your target audience has **zero computer science background**.
+First, **detect the domain** of the content (AI/tech, medical, legal, financial, academic, policy, gaming, crypto, hardware, etc.). This determines what counts as "jargon" and what explanatory style to use.
 
-**What counts as jargon:**
-- Technical terms: "Harness Engineering", "Prompt Engineering", "Context Engineering", "Agent", "LLM", "API", "SDK"
-- English acronyms: "GPT", "RAG", "CI/CD", "API"
-- New concepts and buzzwords: "大模型", "提示词", "上下文窗口"
-- Product/tool names that need context: "ChatGPT", "Claude", "只狼", "全面战争"
-- People's names when they're industry figures: "Karpathy", "Manus"
-- Company/project names: "Anthropic", "OpenAI", "LangChain"
-- Any term that a university student or elderly person wouldn't know
+Identify terms that would be difficult for a **complete beginner in that domain** to understand.
+
+**What counts as jargon (by domain):**
+
+🤖 **AI / 科技**
+- Technical terms: Harness Engineering, Prompt Engineering, Agent, LLM, API, SDK
+- Acronyms: GPT, RAG, CI/CD, NLP
+- Buzzwords: 大模型, 提示词, 上下文窗口
+- Products/people: ChatGPT, Claude, Karpathy, Anthropic, OpenAI
+
+🏥 **医学 / 健康**
+- 疾病名称: 肱骨外上髁炎（网球肘）、甲状腺功能亢进
+- 检查指标: ALT、AST、TSH、HbA1c、CT、MRI
+- 药物术语: 缓释片、肠溶胶囊、生物等效性
+- 手术/治疗: 微创手术、介入治疗、放疗、靶向药
+
+⚖️ **法律**
+- 法律概念: 不可抗力、善意取得、连带责任、诉讼时效
+- 合同术语: 违约金、免责条款、仲裁、管辖权
+- 诉讼用语: 上诉、再审、执行、保全
+
+💰 **金融 / 财经**
+- 指标术语: PE、PB、ROE、毛利率、净利润率
+- 产品名词: ETF、LOF、可转债、期权、对冲
+- 宏观概念: 量化宽松、降准降息、CPI、PPI
+
+📚 **学术论文**
+- 研究方法: 对照实验、双盲、p值、置信区间、meta分析
+- 论文结构: Abstract、Methodology、Discussion、Peer Review
+- 统计术语: 回归分析、标准差、显著性、相关系数
+
+📋 **政策 / 政府文件**
+- 政策用语: 供给侧改革、双循环、新质生产力、专精特新
+- 机构缩写: 发改委、工信部、证监会、央行
+
+🎮 **游戏**
+- 游戏机制: DPS、坦克、奶妈、Buff/Debuff、CD、刷副本
+- 竞技术语: ELO、MMR、段位、赛季
+- 特定游戏: 只狼、艾尔登法环、全面战争
+
+🔗 **区块链 / Web3**
+- 核心概念: 智能合约、Gas Fee、Layer2、跨链、质押
+- DeFi 术语: 流动性池、AMM、TVL、Yield Farming
+- 缩写: DAO、NFT、DEX、CEX
+
+🔧 **硬件 / 数码**
+- 处理器: 制程、核心数、主频、功耗、TDP
+- 显示: 分辨率、刷新率、OLED、Mini-LED
+- 存储: SSD、NVMe、DRAM、UFS
+
+**通用规则**: 以上只是常见示例。对于**任何领域**，识别标准都是同一个：**你奶奶看不懂的词，就该解释。**
 
 **Difficulty Classification:**
 
-Classify each term by expertise level (专业等级):
-- **入门级** (Beginner): Basic concepts everyone should know (ChatGPT, AI, 大模型)
-- **进阶级** (Intermediate): Common industry terms (API, Prompt, Agent)
-- **专业级** (Professional): Specialized concepts (Context Engineering, Harness)
-- **专家级** (Advanced): Deep technical concepts (RAG, embedding, fine-tuning)
-- **大师级** (Expert): Cutting-edge or highly specialized (Agentic workflows, prompt caching)
+Classify each term by expertise level (专业等级). The examples below are cross-domain:
+- **入门级** (Beginner): 日常能碰到的基础概念（AI、体检、合同、基金）
+- **进阶级** (Intermediate): 关注这个领域就会遇到的词（API、转氨酶、违约金、PE）
+- **专业级** (Professional): 从业者常用（Context Engineering、MRI 增强扫描、仲裁条款、对冲）
+- **专家级** (Advanced): 深度专业概念（RAG、HbA1c 达标率、善意取得、可转债定价）
+- **大师级** (Expert): 前沿/极度专业（Agentic workflows、基因编辑 CRISPR、反垄断经济学分析）
 
 ### Step 3: Generate Output
 
