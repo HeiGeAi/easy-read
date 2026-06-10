@@ -345,7 +345,7 @@ Tell the user:
 4. Generate explanations in plain language
 5. Create 300-char summary
 6. Generate beautiful HTML
-7. Save to output directory, e.g. `~/Desktop/easy-read-output/glossary_20260416_143022.html`
+7. Save to output directory, e.g. `~/Desktop/claudecode/easy-read-output/glossary_20260416_143022.html`
 8. Tell user where the file is saved, and remind them they can open it in a browser, print to PDF, or ask you questions about any term
 
 ## Quality Checklist

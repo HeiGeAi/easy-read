@@ -219,7 +219,7 @@ Skill 会：
    - 历史背景（术语怎么演变来的）
    - 300 字文章摘要
 5. 保存到桌面的 `claudecode/easy-read-output/` 文件夹
-6. 在浏览器中打开
+6. 告知生成文件的路径，你可以在浏览器中打开
 
 #### 支持的输入格式
 
@@ -511,7 +511,7 @@ The skill will:
    - Historical context (how the term evolved)
    - A 300-word article summary
 5. Save to your Desktop in `claudecode/easy-read-output/`
-6. Open it in your browser
+6. Tell you the file path so you can open it in your browser
 
 #### Supported Input Formats
 
