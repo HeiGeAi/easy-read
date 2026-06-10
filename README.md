@@ -58,18 +58,7 @@ Easy Read 就干一件事：**把这些话翻译成人话。**
 
 ### 安装
 
-#### 通过插件市场安装（推荐）
-
-直接从 Claude Code 安装：
-
-```bash
-/plugin marketplace add HeiGeAi/easy-read
-/plugin install easy-read@easy-read
-```
-
-然后在 Claude Code 中输入 `/easy-read` 使用。
-
-#### 手动安装
+#### Claude Code（推荐）
 
 将 skill 文件复制到你的 Claude Code skills 目录：
 
@@ -361,18 +350,7 @@ Easy Read translates any of those into plain language, then generates a **glossa
 
 ### Installation
 
-#### Via Plugin Marketplace (Recommended)
-
-Install directly from Claude Code:
-
-```bash
-/plugin marketplace add HeiGeAi/easy-read
-/plugin install easy-read@easy-read
-```
-
-Then use it by typing `/easy-read` in Claude Code.
-
-#### Manual Installation
+#### Claude Code (Recommended)
 
 Copy the skill files to your Claude Code skills directory:
 
