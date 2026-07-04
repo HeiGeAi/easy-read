@@ -109,7 +109,7 @@ git clone https://github.com/HeiGeAi/easy-read.git ~/.openclaw/skills/easy-read
 ```bash
 git clone https://github.com/HeiGeAi/easy-read.git
 # 把 SKILL.md 内容加到项目根目录的 .cursor/rules/easy-read.mdc
-# 或直接放进 .cursorrules 文件
+# 注意：旧的 .cursorrules 已被 Cursor 废弃，优先用 .cursor/rules/ 目录
 ```
 </details>
 
@@ -158,7 +158,7 @@ git clone https://github.com/HeiGeAi/easy-read.git
 ```bash
 git clone https://github.com/HeiGeAi/easy-read.git
 # 在 .continue/config.yaml 的 customInstructions 中引用 SKILL.md
-# 或把内容加到 .continuerules 文件
+# 或把内容放进 .continue/rules/ 目录下的 .md 文件
 ```
 </details>
 
@@ -401,7 +401,7 @@ git clone https://github.com/HeiGeAi/easy-read.git ~/.openclaw/skills/easy-read
 ```bash
 git clone https://github.com/HeiGeAi/easy-read.git
 # Add SKILL.md content to .cursor/rules/easy-read.mdc
-# Or put it in .cursorrules
+# Note: the old .cursorrules is deprecated; prefer the .cursor/rules/ directory
 ```
 </details>
 
@@ -450,7 +450,7 @@ git clone https://github.com/HeiGeAi/easy-read.git
 ```bash
 git clone https://github.com/HeiGeAi/easy-read.git
 # Reference SKILL.md in customInstructions in .continue/config.yaml
-# Or add content to .continuerules
+# Or add content as a .md file under the .continue/rules/ directory
 ```
 </details>
 
@@ -506,10 +506,10 @@ The skill will:
 2. Identify all technical terms and jargon
 3. Generate plain-language explanations for each term
 4. Create an HTML glossary with:
-   - Difficulty levels (Entry → Master)
+   - Difficulty levels (Beginner → Expert)
    - Pronunciation guides (IPA + Chinese phonetics)
    - Historical context (how the term evolved)
-   - A 300-word article summary
+   - A 300-character article summary
 5. Save to your Desktop in `claudecode/easy-read-output/`
 6. Tell you the file path so you can open it in your browser
 
@@ -561,15 +561,15 @@ If **your grandma wouldn't know the word**, it gets caught and explained:
 
 ### Output Format
 
-Each glossary = **300-word plain summary** + **term cards sorted by difficulty**.
+Each glossary = **300-character plain summary** + **term cards sorted by difficulty**.
 
 | Level | Who gets it | Example |
 |-------|------------|---------|
-| 🟢 Entry | Everyone | API → A menu that lets software "order" from each other |
+| 🟢 Beginner | Everyone | API → A menu that lets software "order" from each other |
 | 🔵 Intermediate | Tech-curious | Prompt Engineering → Learning how to talk to AI |
 | 🟡 Professional | Practitioners | Context Window → How much AI can "remember" at once |
-| 🔴 Expert | Deep tech | Embedding → Turning text into numbers for AI |
-| 🟣 Master | Researchers | Harness Engineering → Designing AI's work environment |
+| 🔴 Advanced | Deep tech | Embedding → Turning text into numbers for AI |
+| 🟣 Expert | Researchers | Harness Engineering → Designing AI's work environment |
 
 Every term also includes **pronunciation guide** (IPA + Chinese phonetics) and **historical context** (how the term came to be).
 

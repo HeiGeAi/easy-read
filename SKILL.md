@@ -118,7 +118,7 @@ Classify each term by expertise level (专业等级). The examples below are cro
 Create a beautiful, interactive HTML page with:
 
 1. **Article Summary** (文章摘要)
-   - 300 characters or less
+   - 控制在一小段：中文约 300 字以内，英文约 60 词以内
    - Written for complete beginners
    - Explain what the article is about in plain language
    - Avoid using jargon in the summary itself
@@ -150,19 +150,25 @@ Term Name
 
 **⚠️ 音标生成规则（严格遵守）：**
 
-1. **先查表再生成**：下方参考表里有的术语，直接用表里的 IPA，禁止自行编造
+1. **先查表再生成**：下方参考表按领域分组（科技 / 医学 / 法律 / 金融 / 学术），先在对应领域表里找，有就直接用表里的 IPA，禁止自行编造。复数或变形词先还原成词典原形再查（Agents 查 Agent、Embeddings 查 Embedding）
 2. **缩写词逐字母拼读**：API → /ˌeɪ.piːˈaɪ/，CLI → /ˌsiː.el.ˈaɪ/，不要把缩写读成单词（除非本身就作为单词读，如 SaaS /sæs/、RAM /ræm/、RAG /ræɡ/）
 3. **合成词分段标注**：Backend → /ˈbæk.end/，Full-stack → /fʊl stæk/
-4. **拿不准就只给中式发音**：如果不确定某个术语的准确 IPA，只提供中式发音提示，不要硬写一个可能错误的音标
-5. **中式发音用常见汉字**：选用大众熟悉的字，避免生僻字。用"斯"代替"丝"，用"特"代替"忒"
+4. **统一用美式音**：全表按美式发音（rhotic /r/、tune 用 /tuː/ 不用 /tjuː/），别混英式
+5. **拿不准就只给中式发音**：如果不确定某个术语的准确 IPA，只提供中式发音提示，不要硬写一个可能错误的音标
+6. **中式发音按音节对应，别套万能字**：
+   - 选用大众熟悉的字，避免生僻字。用"斯"代替"丝"，用"特"代替"忒"
+   - **/r/ 开头别一律用"瑞"**（"瑞"读 rui 带 ui 音）：/ræ/ 用"拉"（RAG → 拉格）、/rɪ/ 用"瑞"、/reɪ/ 才用"瑞"
+   - **/tr/ 别用"吹"**（"吹"是 ch 音）：trans 用"特兰斯"（Transformer → 特兰斯佛默）、tri 用"特里"（Retrieval → 瑞特里沃）
+   - **/ɪŋ/ 结尾要收鼻音**：用"英""宁""玲"，别用"恩"（Engineering → 恩吉尼尔英）
+   - 每标一个中式发音，在心里读一遍，跟英文原词对不上就换字
 
-**高频术语音标参考表：**
+**高频术语音标参考表 · AI / 科技：**
 
 | 术语 | IPA | 中式发音 |
 |------|-----|----------|
 | Agent | /ˈeɪ.dʒənt/ | 诶珍特 |
 | Algorithm | /ˈæl.ɡə.rɪ.ðəm/ | 阿尔戈里瑟姆 |
-| Anthropic | /æn.ˈθrɑː.pɪk/ | 安斯若匹克 |
+| Anthropic | /ænˈθrɑ.pɪk/ | 安斯若匹克 |
 | API | /ˌeɪ.piːˈaɪ/ | 诶皮艾 |
 | Artificial | /ˌɑːr.tɪˈfɪʃ.əl/ | 阿提费舍尔 |
 | Backend | /ˈbæk.end/ | 拜肯德 |
@@ -176,9 +182,9 @@ Term Name
 | Database | /ˈdeɪ.tə.beɪs/ | 得特贝斯 |
 | Deployment | /dɪˈplɔɪ.mənt/ | 迪普罗伊门特 |
 | Docker | /ˈdɑː.kər/ | 多克尔 |
-| Embedding | /ɪmˈbed.ɪŋ/ | 嵌贝丁 |
-| Engineering | /ˌen.dʒɪˈnɪr.ɪŋ/ | 恩吉尼尔瑞恩 |
-| Fine-tuning | /faɪn ˈtjuː.nɪŋ/ | 法恩图宁 |
+| Embedding | /ɪmˈbed.ɪŋ/ | 因贝丁 |
+| Engineering | /ˌen.dʒɪˈnɪr.ɪŋ/ | 恩吉尼尔英 |
+| Fine-tuning | /faɪn ˈtuː.nɪŋ/ | 法恩图宁 |
 | Framework | /ˈfreɪm.wɜːrk/ | 弗瑞姆沃克 |
 | Frontend | /ˈfrʌnt.end/ | 弗朗特恩德 |
 | Full-stack | /fʊl stæk/ | 福尔斯泰克 |
@@ -189,25 +195,77 @@ Term Name
 | Harness | /ˈhɑːr.nɪs/ | 哈尼斯 |
 | Inference | /ˈɪn.fər.əns/ | 因弗润斯 |
 | Intelligence | /ɪn.ˈtel.ɪ.dʒəns/ | 因泰利珍斯 |
-| Kubernetes | /kuː.bərˈnet.iːz/ | 库伯奈提斯 |
+| Kubernetes | /kuː.bərˈneɪ.tiːz/ | 库伯奈提斯 |
 | Latency | /ˈleɪ.tən.si/ | 雷特恩西 |
 | LLM | /ˌel.el.ˈem/ | 诶尔诶尔艾姆 |
 | Model | /ˈmɑː.dəl/ | 莫德尔 |
 | Neural | /ˈnʊr.əl/ | 纽若尔 |
 | NLP | /ˌen.el.ˈpiː/ | 恩诶尔皮 |
 | Open Source | /ˌoʊ.pən ˈsɔːrs/ | 欧盆索斯 |
-| Parameter | /pəˈræm.ɪ.tər/ | 帕瑞米特 |
+| Parameter | /pəˈræm.ɪ.tər/ | 帕拉米特 |
 | Pipeline | /ˈpaɪp.laɪn/ | 派普莱恩 |
 | Prompt | /prɑːmpt/ | 普朗普特 |
-| RAG | /ræɡ/ | 瑞格 |
-| Repository | /rɪˈpɑː.zə.tɔːr.i/ | 瑞帕字托瑞 |
-| Retrieval | /rɪˈtriː.vəl/ | 瑞吹沃 |
+| RAG | /ræɡ/ | 拉格 |
+| Repository | /rɪˈpɑː.zə.tɔːr.i/ | 瑞帕泽托瑞 |
+| Retrieval | /rɪˈtriː.vəl/ | 瑞特里沃 |
 | SaaS | /sæs/ | 萨斯 |
 | Scalable | /ˈskeɪ.lə.bəl/ | 斯凯勒波 |
 | SDK | /ˌes.diːˈkeɪ/ | 诶斯迪凯 |
 | Token | /ˈtoʊ.kən/ | 头肯 |
-| Transformer | /trænsˈfɔːr.mər/ | 吹安斯佛默 |
+| Transformer | /trænsˈfɔːr.mər/ | 特兰斯佛默 |
 | Workflow | /ˈwɜːrk.floʊ/ | 沃克弗洛 |
+
+**高频术语音标参考表 · 医学 / 健康：**
+
+| 术语 | IPA | 中式发音 |
+|------|-----|----------|
+| Aneurysm | /ˈæn.jə.rɪ.zəm/ | 安尼瑞森 |
+| Antibiotic | /ˌæn.ti.baɪˈɑː.tɪk/ | 安提拜阿提克 |
+| Arrhythmia | /əˈrɪð.mi.ə/ | 阿里德米亚 |
+| Biopsy | /ˈbaɪ.ɑːp.si/ | 拜阿普西 |
+| Catheter | /ˈkæθ.ɪ.tər/ | 卡西特 |
+| CRISPR | /ˈkrɪs.pər/ | 克里斯珀 |
+| Fibrillation | /ˌfɪb.rɪˈleɪ.ʃən/ | 菲布里雷申 |
+| Metastasis | /məˈtæs.tə.sɪs/ | 梅塔斯塔西斯 |
+| MRI | /ˌem.ɑːrˈaɪ/ | 诶姆阿艾 |
+| Placebo | /pləˈsiː.boʊ/ | 普拉西波 |
+
+**高频术语音标参考表 · 法律：**
+
+| 术语 | IPA | 中式发音 |
+|------|-----|----------|
+| Arbitration | /ˌɑːr.bɪˈtreɪ.ʃən/ | 阿比特雷申 |
+| Fiduciary | /fɪˈduː.ʃi.er.i/ | 菲杜舍瑞 |
+| Indemnification | /ɪnˌdem.nɪ.fɪˈkeɪ.ʃən/ | 因德姆尼菲凯申 |
+| Jurisdiction | /ˌdʒʊr.ɪsˈdɪk.ʃən/ | 朱瑞斯迪克申 |
+| Liability | /ˌlaɪ.əˈbɪl.ə.ti/ | 莱阿比勒提 |
+| Plaintiff | /ˈpleɪn.tɪf/ | 普雷恩提夫 |
+| Subpoena | /səˈpiː.nə/ | 萨皮那 |
+
+**高频术语音标参考表 · 金融 / 财经：**
+
+| 术语 | IPA | 中式发音 |
+|------|-----|----------|
+| Amortization | /ˌæm.ər.tɪˈzeɪ.ʃən/ | 阿摩提泽申 |
+| Derivative | /dɪˈrɪv.ə.tɪv/ | 迪瑞沃提夫 |
+| Dividend | /ˈdɪv.ɪ.dend/ | 迪维登德 |
+| EBITDA | /ɪˈbɪt.dɑː/ | 伊比特达 |
+| Equity | /ˈek.wɪ.ti/ | 埃奎提 |
+| Leverage | /ˈlev.ər.ɪdʒ/ | 列沃瑞吉 |
+| Portfolio | /pɔːrtˈfoʊ.li.oʊ/ | 波特佛里欧 |
+
+**高频术语音标参考表 · 学术 / 研究：**
+
+| 术语 | IPA | 中式发音 |
+|------|-----|----------|
+| Correlation | /ˌkɔːr.əˈleɪ.ʃən/ | 科瑞雷申 |
+| Empirical | /ɪmˈpɪr.ɪ.kəl/ | 因皮瑞口 |
+| Hypothesis | /haɪˈpɑː.θə.sɪs/ | 海帕思西斯 |
+| Methodology | /ˌmeθ.əˈdɑː.lə.dʒi/ | 迈瑟多罗吉 |
+| Paradigm | /ˈpær.ə.daɪm/ | 帕拉戴姆 |
+| Qualitative | /ˈkwɑː.lə.teɪ.tɪv/ | 库阿勒泰提夫 |
+
+> 以上非科技领域同样适用音标规则：先查表，表里没有的按规则生成，拿不准只给中式发音。
 
 **For product/people names:**
 ```
@@ -271,6 +329,8 @@ Use the provided HTML template in `assets/glossary_template.html`. The design sh
 - Responsive design
 - Good contrast for readability
 
+**术语数量控制：** 一般控制在 15-30 个术语。如果文章术语特别多，优先保留对理解主旨最关键的，其余可在结尾一句话带过（提示用户「还有其他词想问随时说」），别硬塞几十张卡片把页面撑得又臭又长。
+
 ## Technical Implementation
 
 ### Step-by-step workflow:
@@ -278,11 +338,11 @@ Use the provided HTML template in `assets/glossary_template.html`. The design sh
 1. **Read the content**: Use your runtime's file/URL/vision tools to extract text
 2. **Analyze and extract jargon**: Identify terms, classify by difficulty level
 3. **Generate explanations**: Write plain language explanation + pronunciation (English terms) + history
-4. **Create summary**: 300-character plain language summary, no jargon
+4. **Create summary**: plain language summary (中文约 300 字 / 英文约 60 词以内), no jargon
 5. **Generate HTML**: Build a JSON object matching the schema below, then either:
    - **Option A (recommended)**: Run `python3 scripts/generate_glossary.py data.json output.html` to generate from template
    - **Option B**: Pipe JSON via stdin: `echo '...' | python3 scripts/generate_glossary.py - output.html`
-   - **Option C**: If Python is unavailable, directly generate HTML following the template structure
+   - **Option C**: If Python is unavailable, generate the HTML directly. Read `assets/glossary_template.html`, replace the three placeholders `{{DOMAIN_OVERVIEW}}`、`{{SUMMARY}}`、`{{GLOSSARY_SECTIONS}}` with your rendered HTML fragments, and reuse the same CSS classes the script emits: 每个术语一个 `<div class="term-card">`，难度分组用 `<div class="difficulty-section">` + `<span class="difficulty-badge difficulty-beginner">`（等级类名 difficulty-beginner/intermediate/professional/advanced/expert），发音用 `<div class="pronunciation" lang="en">` 和 `<div class="pronunciation-help">`。务必对所有文本做 HTML 转义。
 6. **Save output**: Save to the output directory (see below), filename: `glossary_YYYYMMDD_HHMMSS.html`
 
 **JSON Schema for generate_glossary.py:**
@@ -351,7 +411,7 @@ Tell the user:
 ## Quality Checklist
 
 Before generating output, verify:
-- ✅ Summary is under 300 characters
+- ✅ Summary stays within one short paragraph (中文约 300 字 / 英文约 60 词)
 - ✅ Summary uses plain language (no jargon)
 - ✅ All jargon is identified (think: would a grandmother understand this?)
 - ✅ Each term has a plain language explanation
