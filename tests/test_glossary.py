@@ -120,6 +120,24 @@ def test_xss_escaped():
     assert "<script>alert(1)" not in html
 
 
+def test_default_html_is_static_and_print_ready():
+    """默认交付物打开即可读可打印，不依赖滚动脚本或动效。"""
+    rc, err, html = _run(BASE)
+    assert rc == 0
+    lower = html.lower()
+    assert '<script' not in lower
+    for marker in ('transition:', '@keyframes', 'animation:', 'scroll-behavior:'):
+        assert marker not in lower
+
+
+def test_skill_fallback_uses_current_css_contract():
+    skill = (ROOT / 'SKILL.md').read_text(encoding='utf-8')
+    for css_class in ('entry', 'chapter', 'level-beginner', 'ipa', 'cn-phon'):
+        assert css_class in skill
+    for stale_class in ('term-card', 'difficulty-section', 'difficulty-badge'):
+        assert stale_class not in skill
+
+
 def test_decorative_emoji_aria_hidden():
     d = _clone()
     d["terms"]["beginner"][0]["timeline"] = "2023"
