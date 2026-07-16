@@ -34,22 +34,22 @@ BASE = {
 
 def _run(data=None, raw_bytes=None, stdin_mode=False):
     """Run the generator, return (returncode, stderr, html)."""
-    tmp = tempfile.mkdtemp()
-    out = os.path.join(tmp, 'out.html')
-    if stdin_mode:
-        payload = raw_bytes if raw_bytes is not None else json.dumps(data).encode('utf-8')
-        p = subprocess.run([sys.executable, SCRIPT, '-', out], input=payload, capture_output=True)
-    else:
-        inp = os.path.join(tmp, 'in.json')
-        if raw_bytes is not None:
-            with open(inp, 'wb') as f:
-                f.write(raw_bytes)
+    with tempfile.TemporaryDirectory() as tmp:
+        out = os.path.join(tmp, 'out.html')
+        if stdin_mode:
+            payload = raw_bytes if raw_bytes is not None else json.dumps(data).encode('utf-8')
+            p = subprocess.run([sys.executable, SCRIPT, '-', out], input=payload, capture_output=True)
         else:
-            with open(inp, 'w', encoding='utf-8') as f:
-                json.dump(data, f, ensure_ascii=False)
-        p = subprocess.run([sys.executable, SCRIPT, inp, out], capture_output=True)
-    html = open(out, encoding='utf-8').read() if os.path.exists(out) else ''
-    return p.returncode, p.stderr.decode(), html
+            inp = os.path.join(tmp, 'in.json')
+            if raw_bytes is not None:
+                with open(inp, 'wb') as f:
+                    f.write(raw_bytes)
+            else:
+                with open(inp, 'w', encoding='utf-8') as f:
+                    json.dump(data, f, ensure_ascii=False)
+            p = subprocess.run([sys.executable, SCRIPT, inp, out], capture_output=True)
+        html = Path(out).read_text(encoding='utf-8') if os.path.exists(out) else ''
+        return p.returncode, p.stderr.decode(), html
 
 
 def _clone():
@@ -94,15 +94,16 @@ def test_whitespace_ipa_no_empty_div():
     assert '<span class="ipa"' not in html   # stripped away, only cn-phon remains
 
 
-def test_string_is_english_not_truthy():
-    """is_english:'false' (string) must not be treated as True."""
+def test_string_is_english_reports_validation_error():
+    """Schema declares a JSON boolean, so string lookalikes must not be guessed."""
     d = _clone()
     d["terms"]["beginner"][0]["is_english"] = "false"
     d["terms"]["beginner"][0]["name"] = "中文词"
     rc, err, html = _run(d)
-    assert rc == 0
-    assert 'class="entry__name is-cn"' in html   # Chinese term uses CN serif
-    assert '<span class="en"' not in html        # not wrapped as English
+    assert rc == 1
+    assert "is_english" in err
+    assert "bool" in err
+    assert html == ''
 
 
 def test_stdin_mode():
@@ -118,6 +119,24 @@ def test_xss_escaped():
     assert rc == 0
     assert "&lt;script&gt;" in html
     assert "<script>alert(1)" not in html
+
+
+def test_default_html_is_static_and_print_ready():
+    """默认交付物打开即可读可打印，不依赖滚动脚本或动效。"""
+    rc, err, html = _run(BASE)
+    assert rc == 0
+    lower = html.lower()
+    assert '<script' not in lower
+    for marker in ('transition:', '@keyframes', 'animation:', 'scroll-behavior:'):
+        assert marker not in lower
+
+
+def test_skill_fallback_uses_current_css_contract():
+    skill = (ROOT / 'SKILL.md').read_text(encoding='utf-8')
+    for css_class in ('entry', 'chapter', 'level-beginner', 'ipa', 'cn-phon'):
+        assert css_class in skill
+    for stale_class in ('term-card', 'difficulty-section', 'difficulty-badge'):
+        assert stale_class not in skill
 
 
 def test_decorative_emoji_aria_hidden():
@@ -143,6 +162,50 @@ def test_bad_json_reports_source():
     rc, err, html = _run(raw_bytes=b'{not json}')
     assert rc == 1
     assert "JSON" in err
+
+
+def test_non_string_summary_reports_validation_error_without_traceback():
+    """AI 生成的字段类型不稳定时，应给出契约错误而不是 Python traceback。"""
+    d = _clone()
+    d["summary"] = ["不是字符串"]
+    rc, err, html = _run(d)
+    assert rc == 1
+    assert "summary" in err
+    assert "Traceback" not in err
+
+
+def test_non_string_phonetic_field_reports_validation_error_without_traceback():
+    """会调用 strip() 的可选文本字段也必须先校验类型。"""
+    d = _clone()
+    d["terms"]["beginner"][0]["ipa"] = {"value": "bad"}
+    rc, err, html = _run(d)
+    assert rc == 1
+    assert "ipa" in err
+    assert "Traceback" not in err
+
+
+def test_non_string_name_reports_validation_error_without_rendering_repr():
+    """Object-shaped names must not be silently stringified into a glossary."""
+    d = _clone()
+    d["terms"]["beginner"][0]["name"] = {"unexpected": "object"}
+    rc, err, html = _run(d)
+    assert rc == 1
+    assert "name" in err
+    assert "str" in err
+    assert "Traceback" not in err
+    assert html == ''
+
+
+def test_non_boolean_is_english_reports_validation_error():
+    """Truthy arrays or numbers must not change the language markup."""
+    for bad_value in (["false"], 1, None):
+        d = _clone()
+        d["terms"]["beginner"][0]["is_english"] = bad_value
+        rc, err, html = _run(d)
+        assert rc == 1
+        assert "is_english" in err
+        assert "bool" in err
+        assert html == ''
 
 
 if __name__ == '__main__':

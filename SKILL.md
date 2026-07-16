@@ -115,7 +115,7 @@ Classify each term by expertise level (专业等级). The examples below are cro
 
 ### Step 3: Generate Output
 
-Create a beautiful, interactive HTML page with:
+Create a beautiful, static HTML page with:
 
 1. **Article Summary** (文章摘要)
    - 控制在一小段：中文约 300 字以内，英文约 60 词以内
@@ -323,9 +323,9 @@ Use the provided HTML template in `assets/glossary_template.html`. The design sh
 6. Each term is a card/block with clear visual hierarchy
 7. Footer with instructions: "想了解更多任何词汇，可以继续对话"
 
-**Interaction:**
-- No search/filter needed (glossary won't be too long)
-- Smooth scrolling
+**Static delivery:**
+- No search/filter or runtime JavaScript needed (glossary won't be too long)
+- No animations or scrolling effects; the full page is readable immediately
 - Responsive design
 - Good contrast for readability
 
@@ -342,7 +342,7 @@ Use the provided HTML template in `assets/glossary_template.html`. The design sh
 5. **Generate HTML**: Build a JSON object matching the schema below, then either:
    - **Option A (recommended)**: Run `python3 scripts/generate_glossary.py data.json output.html` to generate from template
    - **Option B**: Pipe JSON via stdin: `echo '...' | python3 scripts/generate_glossary.py - output.html`
-   - **Option C**: If Python is unavailable, generate the HTML directly. Read `assets/glossary_template.html`, replace the three placeholders `{{DOMAIN_OVERVIEW}}`、`{{SUMMARY}}`、`{{GLOSSARY_SECTIONS}}` with your rendered HTML fragments, and reuse the same CSS classes the script emits: 每个术语一个 `<div class="term-card">`，难度分组用 `<div class="difficulty-section">` + `<span class="difficulty-badge difficulty-beginner">`（等级类名 difficulty-beginner/intermediate/professional/advanced/expert），发音用 `<div class="pronunciation" lang="en">` 和 `<div class="pronunciation-help">`。务必对所有文本做 HTML 转义。
+   - **Option C**: If Python is unavailable, generate the HTML directly. Read `assets/glossary_template.html`, replace the three placeholders `{{DOMAIN_OVERVIEW}}`、`{{SUMMARY}}`、`{{GLOSSARY_SECTIONS}}` with your rendered HTML fragments, and reuse the same CSS classes the script emits: 每个术语用 `<article class="entry">`，难度分组用 `<section class="chapter level-beginner">`（等级类名 `level-beginner`、`level-intermediate`、`level-professional`、`level-advanced`、`level-expert`），音标用 `<span class="ipa" lang="en">`，中式发音用 `<span class="cn-phon">`。务必对所有文本做 HTML 转义。
 6. **Save output**: Save to the output directory (see below), filename: `glossary_YYYYMMDD_HHMMSS.html`
 
 **JSON Schema for generate_glossary.py:**

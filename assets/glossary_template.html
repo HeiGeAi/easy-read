@@ -42,7 +42,6 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
 
         body {
             background: var(--paper);
@@ -77,13 +76,6 @@
         }
         .skip-link:focus { left: 0; }
         a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-
-        /* ---------- reveal on scroll ---------- */
-        .reveal {
-            opacity: 0; transform: translateY(24px);
-            transition: opacity 0.9s cubic-bezier(.2,.7,.2,1), transform 0.9s cubic-bezier(.2,.7,.2,1);
-        }
-        .reveal.in { opacity: 1; transform: none; }
 
         /* ============ MASTHEAD ============ */
         .masthead {
@@ -321,7 +313,6 @@
             :root { --paper: #ffffff; --paper-deep: #ffffff; --paper-card: #ffffff; }
             body { background: #fff; color: #000; font-size: 12pt; }
             .skip-link, .masthead__mark + .kicker { }
-            .reveal { opacity: 1 !important; transform: none !important; }
             .hero::before { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .chapter, .entry { page-break-inside: avoid; }
             .chapter__head { page-break-after: avoid; }
@@ -335,12 +326,6 @@
         }
         @page { margin: 16mm 14mm; }
 
-        /* ============ REDUCED MOTION ============ */
-        @media (prefers-reduced-motion: reduce) {
-            html { scroll-behavior: auto; }
-            .reveal { opacity: 1 !important; transform: none !important; transition: none; }
-            * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-        }
     </style>
 </head>
 <body>
@@ -379,24 +364,5 @@
         </div>
     </footer>
 
-    <script>
-    (function () {
-        var nodes = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
-        function revealAll() { nodes.forEach(function (n) { n.classList.add('in'); }); }
-        var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (reduce || !('IntersectionObserver' in window)) {
-            revealAll();
-        } else {
-            var io = new IntersectionObserver(function (entries) {
-                entries.forEach(function (e) {
-                    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-                });
-            }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
-            nodes.forEach(function (n) { io.observe(n); });
-            // safety fallback: never let content stay hidden
-            setTimeout(revealAll, 1600);
-        }
-    })();
-    </script>
 </body>
 </html>
