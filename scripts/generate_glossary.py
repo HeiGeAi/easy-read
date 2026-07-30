@@ -44,6 +44,10 @@ def validate_data(data):
         errors.append("JSON 顶层必须是对象（dict），实际类型: %s" % type(data).__name__)
         return errors
 
+    if 'summary' in data and data['summary'] is not None and not isinstance(data['summary'], str):
+        errors.append("'summary' 字段必须是字符串（str），实际类型: %s"
+                      % type(data['summary']).__name__)
+
     if 'terms' not in data:
         errors.append("JSON 中缺少 'terms' 字段")
     elif not isinstance(data['terms'], dict):
@@ -65,10 +69,20 @@ def validate_data(data):
                                   % (level_key, i, type(term).__name__))
                     continue
                 name = term.get('name')
-                # Strip zero-width chars too, so a visually invisible name is rejected
-                cleaned = re.sub(r'[​‌‍﻿]', '', str(name or '')).strip()
-                if not cleaned:
+                if not isinstance(name, str):
+                    errors.append("'terms.%s' 第 %d 项的 'name' 字段必须是字符串（str），实际类型: %s"
+                                  % (level_key, i, type(name).__name__))
+                # Strip zero-width chars too, so a visually invisible name is rejected.
+                elif not re.sub(r'[​‌‍﻿]', '', name).strip():
                     errors.append("'terms.%s' 第 %d 项缺少非空 'name' 字段" % (level_key, i))
+                if 'is_english' in term and not isinstance(term['is_english'], bool):
+                    errors.append("'terms.%s' 第 %d 项的 'is_english' 字段必须是布尔值（bool），实际类型: %s"
+                                  % (level_key, i, type(term['is_english']).__name__))
+                for field in ('ipa', 'chinese_pronunciation', 'explanation'):
+                    value = term.get(field)
+                    if value is not None and not isinstance(value, str):
+                        errors.append("'terms.%s' 第 %d 项的 '%s' 字段必须是字符串（str），实际类型: %s"
+                                      % (level_key, i, field, type(value).__name__))
 
     if 'domains' in data and data['domains'] is not None:
         domains = data['domains']
@@ -192,10 +206,7 @@ def generate_term_card(term):
     """Generate HTML for a single term, styled as a dictionary entry."""
 
     name = esc(term.get('name', ''))
-    # Coerce so a string "false"/"0" from AI-generated JSON is not treated as truthy
     is_english = term.get('is_english', False)
-    if isinstance(is_english, str):
-        is_english = is_english.strip().lower() in ('true', '1', 'yes')
 
     parts = ['<article class="entry reveal">']
 
