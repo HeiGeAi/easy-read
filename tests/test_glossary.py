@@ -84,6 +84,11 @@ def test_unknown_level_key_warns():
     rc, err, html = _run(d)
     assert rc == 1
     assert "guru" in err
+    # The message must match actual behavior: validation aborts generation
+    # entirely, so it must not claim other content still renders.
+    assert "中止" in err
+    assert "不会被渲染" not in err
+    assert html == ''
 
 
 def test_terms_sorted_alphabetically_within_level():

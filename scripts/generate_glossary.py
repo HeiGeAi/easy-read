@@ -56,7 +56,7 @@ def validate_data(data):
         valid_levels = {'beginner', 'intermediate', 'professional', 'advanced', 'expert'}
         unknown = set(data['terms'].keys()) - valid_levels
         if unknown:
-            errors.append("'terms' 含未知等级键，这些术语不会被渲染: %s（合法等级: %s）"
+            errors.append("'terms' 含未知等级键: %s（合法等级: %s）；存在校验错误，生成中止，不产出任何文件"
                           % (', '.join(sorted(unknown)), ', '.join(sorted(valid_levels))))
         for level_key, terms in data['terms'].items():
             if not isinstance(terms, list):
