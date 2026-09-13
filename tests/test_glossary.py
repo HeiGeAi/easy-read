@@ -290,5 +290,10 @@ if __name__ == '__main__':
         except AssertionError as e:
             failed += 1
             print("  ❌ %s  %s" % (t.__name__, e))
+        except Exception as e:
+            # A non-assertion error used to kill the whole runner and lose
+            # the pass/fail tally; count it as a failure and keep going.
+            failed += 1
+            print("  ❌ %s  unexpected %s: %s" % (t.__name__, type(e).__name__, e))
     print("\n%d passed, %d failed" % (len(tests) - failed, failed))
     sys.exit(1 if failed else 0)
