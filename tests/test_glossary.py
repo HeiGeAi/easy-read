@@ -86,6 +86,19 @@ def test_unknown_level_key_warns():
     assert "guru" in err
 
 
+def test_terms_sorted_alphabetically_within_level():
+    """SKILL.md promises alphabetical order within each level."""
+    d = _clone()
+    d["terms"]["beginner"] = [
+        {"name": "Zebra", "explanation": "z"},
+        {"name": "alpha", "explanation": "a"},
+        {"name": "Mango", "explanation": "m"},
+    ]
+    rc, err, html = _run(d)
+    assert rc == 0
+    assert html.index("alpha") < html.index("Mango") < html.index("Zebra")
+
+
 def test_whitespace_ipa_no_empty_div():
     """A whitespace-only IPA must not emit an empty phonetic node."""
     d = _clone()

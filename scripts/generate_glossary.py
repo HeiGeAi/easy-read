@@ -132,6 +132,10 @@ def generate_html(data, template_path, output_path):
         if not terms:
             continue
 
+        # SKILL.md promises "Within each level, sort alphabetically".
+        # Sort case-insensitively by term name instead of trusting input order.
+        terms = sorted(terms, key=lambda t: (t.get('name') or '').lower())
+
         entries = ''.join(generate_term_card(t) for t in terms)
         section_html = (
             '<section class="chapter {cls}">'
