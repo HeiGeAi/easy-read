@@ -78,7 +78,8 @@ def validate_data(data):
                 if 'is_english' in term and not isinstance(term['is_english'], bool):
                     errors.append("'terms.%s' 第 %d 项的 'is_english' 字段必须是布尔值（bool），实际类型: %s"
                                   % (level_key, i, type(term['is_english']).__name__))
-                for field in ('ipa', 'chinese_pronunciation', 'explanation'):
+                for field in ('ipa', 'chinese_pronunciation', 'explanation',
+                              'what_is', 'why_important', 'history', 'timeline'):
                     value = term.get(field)
                     if value is not None and not isinstance(value, str):
                         errors.append("'terms.%s' 第 %d 项的 '%s' 字段必须是字符串（str），实际类型: %s"
@@ -93,6 +94,17 @@ def validate_data(data):
                 if not isinstance(d, dict):
                     errors.append("'domains' 第 %d 项必须是对象（dict），实际类型: %s"
                                   % (i, type(d).__name__))
+                    continue
+                for field in ('name', 'emoji'):
+                    value = d.get(field)
+                    if value is not None and not isinstance(value, str):
+                        errors.append("'domains' 第 %d 项的 '%s' 字段必须是字符串（str），实际类型: %s"
+                                      % (i, field, type(value).__name__))
+                count = d.get('count')
+                if count is not None and (isinstance(count, bool)
+                                          or not isinstance(count, int) or count < 0):
+                    errors.append("'domains' 第 %d 项的 'count' 字段必须是非负整数（int），实际值: %r"
+                                  % (i, count))
 
     return errors
 

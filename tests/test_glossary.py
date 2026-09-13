@@ -211,6 +211,38 @@ def test_non_string_phonetic_field_reports_validation_error_without_traceback():
     assert "Traceback" not in err
 
 
+def test_non_string_optional_note_fields_report_validation_error():
+    # history/timeline/what_is/why_important used to skip type checks,
+    # so esc() stringified lists/dicts and rendered Python repr into the page.
+    for field in ('what_is', 'why_important', 'history', 'timeline'):
+        d = _clone()
+        d["terms"]["beginner"][0][field] = ["not", "a", "string"]
+        rc, err, html = _run(d)
+        assert rc == 1, field
+        assert field in err
+        assert "str" in err
+        assert html == "", field
+
+
+def test_domains_inner_fields_report_validation_error():
+    # domains items were only checked for being dicts; a dict-shaped name
+    # or list-shaped count leaked Python repr into the domain strip.
+    bad_domains = [
+        {"emoji": "🏥", "name": {"oops": 1}, "count": 1},
+        {"emoji": ["🏥"], "name": "医学", "count": 1},
+        {"emoji": "🏥", "name": "医学", "count": "3"},
+        {"emoji": "🏥", "name": "医学", "count": True},
+        {"emoji": "🏥", "name": "医学", "count": -2},
+    ]
+    for bad in bad_domains:
+        d = _clone()
+        d["domains"] = [bad]
+        rc, err, html = _run(d)
+        assert rc == 1, bad
+        assert "domains" in err
+        assert html == "", bad
+
+
 def test_non_string_name_reports_validation_error_without_rendering_repr():
     """Object-shaped names must not be silently stringified into a glossary."""
     d = _clone()
