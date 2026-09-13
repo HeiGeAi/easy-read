@@ -167,6 +167,19 @@ def test_help_flag():
     assert "Usage" in p.stdout.decode()
 
 
+def test_help_flag_in_output_position_does_not_short_circuit():
+    # '-h' used to match anywhere in argv, swallowing real invocations.
+    with tempfile.TemporaryDirectory() as tmp:
+        inp = os.path.join(tmp, 'in.json')
+        with open(inp, 'w', encoding='utf-8') as f:
+            json.dump(BASE, f, ensure_ascii=False)
+        out = os.path.join(tmp, '-h')  # an output file literally named '-h'
+        p = subprocess.run([sys.executable, SCRIPT, inp, out], capture_output=True)
+        assert p.returncode == 0
+        assert "Usage" not in p.stdout.decode()
+        assert os.path.exists(out)
+
+
 def test_no_args_exits_nonzero():
     p = subprocess.run([sys.executable, SCRIPT], capture_output=True)
     assert p.returncode == 1

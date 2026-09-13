@@ -268,8 +268,11 @@ def generate_term_card(term):
 
 
 def main():
-    # --help / -h
-    if '--help' in sys.argv or '-h' in sys.argv:
+    # --help / -h: only when it is the first argument. A bare membership
+    # test also matched the output-path position, making
+    # `generate_glossary.py data.json -h` print usage and exit 0 without
+    # producing any file, which scripted callers misread as success.
+    if len(sys.argv) >= 2 and sys.argv[1] in ('-h', '--help'):
         print(USAGE)
         sys.exit(0)
 
