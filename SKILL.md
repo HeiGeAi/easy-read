@@ -342,7 +342,17 @@ Use the provided HTML template in `assets/glossary_template.html`. The design sh
 5. **Generate HTML**: Build a JSON object matching the schema below, then either:
    - **Option A (recommended)**: Run `python3 scripts/generate_glossary.py data.json output.html` to generate from template
    - **Option B**: Pipe JSON via stdin: `echo '...' | python3 scripts/generate_glossary.py - output.html`
-   - **Option C**: If Python is unavailable, generate the HTML directly. Read `assets/glossary_template.html`, replace the three placeholders `{{DOMAIN_OVERVIEW}}`、`{{SUMMARY}}`、`{{GLOSSARY_SECTIONS}}` with your rendered HTML fragments, and reuse the same CSS classes the script emits: 每个术语用 `<article class="entry">`，难度分组用 `<section class="chapter level-beginner">`（等级类名 `level-beginner`、`level-intermediate`、`level-professional`、`level-advanced`、`level-expert`），音标用 `<span class="ipa" lang="en">`，中式发音用 `<span class="cn-phon">`。务必对所有文本做 HTML 转义。
+   - **Option C**: If Python is unavailable, generate the HTML directly. Read `assets/glossary_template.html`, replace the three placeholders `{{DOMAIN_OVERVIEW}}`、`{{SUMMARY}}`、`{{GLOSSARY_SECTIONS}}` with your rendered HTML fragments, and reuse the same CSS classes the script emits: 每个术语用 `<article class="entry">`，难度分组用 `<section class="chapter level-beginner">`（等级类名 `level-beginner`、`level-intermediate`、`level-professional`、`level-advanced`、`level-expert`），音标用 `<span class="ipa" lang="en">`，中式发音用 `<span class="cn-phon">`。务必对所有文本做 HTML 转义。转义规则（与脚本 `esc()` 一致，逐字符替换，先 `&` 后其余）：
+
+| 原字符 | 替换为 |
+|--------|--------|
+| `&` | `&amp;` |
+| `<` | `&lt;` |
+| `>` | `&gt;` |
+| `"` | `&quot;` |
+| `'` | `&#x27;` |
+
+反面示例：术语名 `<script>alert(1)</script>` 必须写成 `&lt;script&gt;alert(1)&lt;/script&gt;`；直接拼接原文会把脚本注入生成的静态页，转发分享即成存储型 XSS。
 6. **Save output**: Save to the output directory (see below), filename: `glossary_YYYYMMDD_HHMMSS.html`
 
 **JSON Schema for generate_glossary.py:**
